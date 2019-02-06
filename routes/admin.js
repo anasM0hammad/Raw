@@ -9,13 +9,13 @@ const rootDir = require('../util/path');
 const products = [];
 
 router.get('/add-product', (req , res , next) => {
-   res.sendFile(path.join(rootDir , 'views' , 'add-product.html'));
+  res.render('add-product' , {docTitle: 'Add Product'});
 });
 
 
 router.post('/add-product' , (req , res , next) => {
-  console.log(req.body);
-  products.push({product : req.body.product}) ;
+  console.log(req.body.product);
+  products.push({ title : req.body.product }) ;
   res.redirect('/');
 });
 

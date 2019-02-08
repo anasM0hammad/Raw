@@ -8,8 +8,9 @@ const adminRoutes = require('../routes/admin');
 const router = express.Router() ;
 
 router.get('/shop' , (req , res , next)=>{
-     console.log('shop' , adminRoutes.products.title)
-     res.render('shop' , {docTitle: 'Shop'});
+
+    const products = adminRoutes.products;
+     res.render('shop' , {docTitle: 'Shop' ,  prods: products});
 });
 
 module.exports = router ;

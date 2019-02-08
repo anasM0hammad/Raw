@@ -4,19 +4,13 @@ const express = require('express');
 
 const router = express.Router();
 
-const rootDir = require('../util/path');
-
-const products = [];
-
-router.get('/add-product', (req , res , next) => {
-  res.render('add-product' , {docTitle: 'Add Product'});
-});
+const productController = require('../controllers/products');
 
 
-router.post('/add-product' , (req , res , next) => {
-  products.push({ title : req.body.product }) ;
-  res.redirect('/shop');
-});
+//ROUTES FOR GETTING ADD PRODUCT PAGE
+router.get('/add-product', productController.getAddProduct);
 
-exports.routes = router ;
-exports.products = products ;
+//ROUTE FOR ADD PRODUCT
+router.post('/add-product' , productController.postAddProduct);
+
+module.exports = router ;

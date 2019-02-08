@@ -19,7 +19,7 @@ app.use(homeRouter);
 
 app.use(shopRouter);
 
-app.use(adminRouter.routes);
+app.use(adminRouter);
 
 app.use(notFoundRouter);
 

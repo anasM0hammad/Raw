@@ -1,3 +1,11 @@
 nav{
-    margin-bottom: 30px;
+    margin-bottom: 50px;
+}
+
+.mybtn-corner{
+    border-radius: 0%;
+}
+
+.footer{
+    background-color:#E9ECEF;
 }

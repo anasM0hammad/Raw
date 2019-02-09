@@ -9,28 +9,58 @@
     
     <!-- ALL PRODUCTS -->
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-8">
+       <% let productCount = prods.length ;  %>
         <% if(prods.length > 0){
-          for(let product of prods){ %>
-          <div class="card">
-          <h4 class="card-header text-center"><i><%= product.title %></i></h4>
-            <div class="card-body">
-              <img src="<%= product.image %>" class="mx-auto d-block" width="50%" height="170" ><br>
-              <h5><b>Price : ₹ <%= product.price %> /-</b></h5>
-              <p><%= product.description %></p>
-              <br>
-              <button class="btn btn-outline-primary mybtn-corner">Add to Cart</button>
-              <button class="btn btn-outline-primary mybtn-corner float-right">View Details</button>
+          let i = 0 ;
+          while(productCount){ %>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="card">
+                  <h4 class="card-header text-center"><i><%= prods[i].title %></i></h4>
+                    <div class="card-body">
+                      <img src="<%= prods[i].image %>" class="mx-auto d-block" width="50%" height="170" ><br>
+                      <h5><b>Price : ₹ <%= prods[i].price %> /-</b></h5>
+                      <p><%= prods[i].description %></p>
+                      <br>
+                      <button class="btn btn-outline-primary mybtn-corner">Add to Cart</button>
+                      <button class="btn btn-outline-primary mybtn-corner float-right">View Details</button>
+                    </div>
+                  </div>
+              </div>
+              <!-- SECOND PRODUCT IN SAME ROW -->
+              <% productCount--  ; 
+                if(productCount){
+              %>
+              <div class="col-sm-6">
+                  <div class="card">
+                    <h4 class="card-header text-center"><i><%= prods[i+1].title %></i></h4>
+                      <div class="card-body">
+                        <img src="<%= prods[i+1].image %>" class="mx-auto d-block" width="50%" height="170" ><br>
+                        <h5><b>Price : ₹ <%= prods[i+1].price %> /-</b></h5>
+                        <p><%= prods[i+1].description %></p>
+                        <br>
+                        <button class="btn btn-outline-primary mybtn-corner">Add to Cart</button>
+                        <button class="btn btn-outline-primary mybtn-corner float-right">View Details</button>
+                      </div>
+                    </div>
+                </div>
+               <% productCount-- ;
+                  i = i+2 ;
+                 } %> 
             </div>
-          </div>
+              
          <% }
         } else{  %>
           <div class="alert alert-danger"><b>No Products</b></div>
        <% }%>   
       </div>
+      
+      <!-- SPACE -->
+      <div class="col-sm-1"> </div>
 
       <!-- SIDE WIDGETS -->
-      <div class="col-sm-6"></div>
+      <div class="col-sm-3"></div>
     </div>
    
   </div>

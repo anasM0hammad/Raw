@@ -13,3 +13,11 @@ nav{
 .card{
     margin-bottom: 10px;
 }
+
+.btn a {
+   color: inherit ;
+}
+
+.btn a:hover{
+    color: inherit;
+}

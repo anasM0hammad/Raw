@@ -21,5 +21,9 @@ exports.getCheckout = (req , res , next ) =>{
 
 //CONTROLLER FUNCTION TO RENDER PRODUCT DETAILS
 exports.getProductDetails = (req , res , next ) =>{
-    res.render('shop/product-details' , {docTitle: 'Product Details' , path: '/product-details'});
+    const productId = req.params.productId ;
+    ProductModel.fetchById(productId , (product)=>{
+        res.render('shop/product-details' , {docTitle: 'Product Details' , path: '/product-details' , product: product});
+    });
+   
 }

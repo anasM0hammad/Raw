@@ -3,9 +3,26 @@
 
 <!-- NAVBAR -->
 <%- include('../includes/nav.ejs'); %>
-
+    
     <div class="container">
-        <h1>Product Details</h1>
+     <div class="row">
+         <div class="col-sm-3"></div>
+         <div class="col-sm-6">
+             <div class="card">
+                 <img src="<%= product.image %>" class="card-img-top mx-auto" style="max-height: 200px; max-width: 60%;">
+                 <div class="card-body">
+                   <h4 class="text-center"><%= product.title %></h4>
+                   <br>
+                   <h5>Price : ₹ <%= product.price %></h5>
+                   <p><small><%= product.description %></small></p>
+                   <br>
+                   <button class="btn btn-outline-primary btn-block mybtn-corner">Add to Cart</button>
+                   <a href=""><button class="btn btn-outline-success btn-block mybtn-corner ">Order Now</button></a>  
+                 </div>
+             </div>
+         </div>
+         <div class="col-sm-3"></div>
+     </div>    
     </div>
 
 

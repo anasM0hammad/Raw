@@ -26,3 +26,8 @@ nav{
 .btn{
     margin-bottom: 5px;
 }
+
+.myForm{
+    padding: 0;
+    margin: 0;
+}

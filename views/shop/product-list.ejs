@@ -23,8 +23,7 @@
                       <h6><b>Price : ₹ <%= prods[i].price %> /-</b></h6>
                       <p><small><%= prods[i].description %></small></p>
                       <br>
-                      <button class="btn btn-outline-primary btn-sm mybtn-corner">Add to Cart</button>
-                      <button class="btn btn-outline-success btn-sm mybtn-corner float-right"><a href="/product-details/<%=prods[i].productId%>">View Details</a></button>
+                        <%- include('../includes/add-to-cart-form.ejs' , {prods:prods , i:i}) %>
                     </div>
                   </div>
               </div>
@@ -41,8 +40,7 @@
                         <h6><b>Price : ₹ <%= prods[i].price %> /-</b></h6>
                         <p><small><%= prods[i].description %></small></p>
                         <br>
-                        <button class="btn btn-outline-primary btn-sm mybtn-corner">Add to Cart</button>
-                        <button class="btn btn-outline-success btn-sm mybtn-corner float-right"><a href="/product-details/<%=prods[i].productId%>">View Details</a></button>
+                        <%- include('../includes/add-to-cart-form.ejs' , {prods:prods , i:i}) %>
                       </div>
                     </div>
                 </div>
@@ -62,8 +60,7 @@
                           <h6><b>Price : ₹ <%= prods[i].price %> /-</b></h6>
                           <p><small><%= prods[i].description %></small></p>
                           <br>
-                          <button class="btn btn-outline-primary btn-sm mybtn-corner">Add to Cart</button>
-                          <button class="btn btn-outline-success btn-sm mybtn-corner float-right"><a href="/product-details/<%=prods[i].productId%>">View Details</a></button>
+                          <%- include('../includes/add-to-cart-form.ejs' , {prods:prods , i:i}) %>
                         </div>
                       </div>
                   </div>

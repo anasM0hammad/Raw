@@ -9,7 +9,11 @@ exports.getAddProduct = (req , res ,next) => {
 
 //CONTROLLER FUNCTION TO TAKE THE ADD PRODUCT POST REQUEST
 exports.postAddProduct = (req , res , next) => {
-    const product = new ProductModel(req.body.product) ;
+    const title = req.body.title ;
+    const image = req.body.image ;
+    const price = req.body.price ;
+    const description = req.body.description ;
+    const product = new ProductModel(title , image , price , description) ;
     product.save();
     res.redirect('/shop');
 }

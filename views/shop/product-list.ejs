@@ -5,23 +5,34 @@
 <%- include('../includes/nav.ejs'); %>
 
   <div class="container">
-    <% if(prods.length > 0){ %>
-    <% for (let product of prods ){ %>
-      <div class="row">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-6">
+    <h1>Products</h1><br><br>
+    
+    <!-- ALL PRODUCTS -->
+    <div class="row">
+      <div class="col-sm-6">
+        <% if(prods.length > 0){
+          for(let product of prods){ %>
           <div class="card">
+          <h4 class="card-header text-center"><i><%= product.title %></i></h4>
             <div class="card-body">
-              <h3>Name : <%= product.title %></h3>
+              <img src="<%= product.image %>" class="mx-auto d-block" width="50%" height="170" ><br>
+              <h5><b>Price : ₹ <%= product.price %> /-</b></h5>
+              <p><%= product.description %></p>
+              <br>
+              <button class="btn btn-outline-primary mybtn-corner">Add to Cart</button>
+              <button class="btn btn-outline-primary mybtn-corner float-right">View Details</button>
             </div>
           </div>
-        </div>
-        <div class="col-sm-3"></div>
+         <% }
+        } else{  %>
+          <div class="alert alert-danger"><b>No Products</b></div>
+       <% }%>   
       </div>
-      <% }%>
-      <% } else {%>
-        <h3>No Products</h3>
-      <% }%>
+
+      <!-- SIDE WIDGETS -->
+      <div class="col-sm-6"></div>
+    </div>
+   
   </div>
 
 

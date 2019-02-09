@@ -31,7 +31,7 @@ module.exports = class Product {
     //METHOD TO SAVE THE PRODUCT IN PRODUCTS ARRAY
     save(){
       let products = [];  
-      this.productId = Math.random();
+      this.productId = Math.random().toString();
       fs.readFile(productFile , (err , fileContent) =>{
             if(!err){
                 products = JSON.parse(fileContent);

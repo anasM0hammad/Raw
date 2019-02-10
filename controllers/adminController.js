@@ -46,6 +46,15 @@ exports.getEditProduct = (req , res ,next) => {
 
  }
 
+  //CONTROLLER FUNCTION TO DELETE PRODUCt
+  exports.deleteProduct = (req , res ,next)=>{
+    const productId = req.params.productId ;
+    ProductModel.deleteProduct(productId);
+    res.redirect('/shop');
+  }
+
+
+
 // CONTROLLER FUNCTION TO GET ALL THE PRODUCTS PAGE
 exports.getProducts = (req , res ,next) => {
     ProductModel.fetchAll(products =>{

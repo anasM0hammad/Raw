@@ -71,6 +71,20 @@ module.exports = class Product {
      })
 
    }
+
+
+   //STATIC METHOD TO DELETE A PRODUCT
+   static deleteProduct(id){
+       getProductsFromFile(products => {
+        const index = products.findIndex(p => p.productId === id) ;
+        products.splice(index , 1);
+
+        fs.writeFile(productFile , JSON.stringify(products) , (err)=>{
+            console.log(err);
+        })
+
+       });
+   }
        
 
 }

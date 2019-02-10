@@ -20,6 +20,9 @@ exports.getCart = (req , res , next ) =>{
 exports.postCart = (req , res , next) => {
     const productId = req.body.productId;
     ProductModel.fetchById(productId , (product) => {
+        if(!product){
+           return res.redirect('/');
+        }
         CartModel.addProduct(productId , product.price);
     });
     res.redirect('/');
@@ -35,6 +38,9 @@ exports.getCheckout = (req , res , next ) =>{
 exports.getProductDetails = (req , res , next ) =>{
     const productId = req.params.productId ;
     ProductModel.fetchById(productId , (product)=>{
+        if(!product){
+            return res.redirect('/');
+        }
         res.render('shop/product-details' , {docTitle: 'Product Details' , path: '/product-details' , product: product});
     });
    

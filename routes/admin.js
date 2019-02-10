@@ -16,6 +16,9 @@ router.post('/add-product' , adminController.postAddProduct);
 //ROUTE FOR EDIT PRODUCT PAGE
 router.get('/edit-product/:productId' , adminController.getEditProduct);
 
+//ROUTE FOR POST REQ OF EDITTING PAGE
+router.post('/edit-product/:productId' , adminController.postEditProduct);
+
 //ROUTE TO GET ADMIN PRODUCTS PAGE
 router.get('/products' , adminController.getProducts);
 

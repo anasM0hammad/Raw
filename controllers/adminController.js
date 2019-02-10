@@ -28,9 +28,23 @@ exports.getEditProduct = (req , res ,next) => {
         res.render('admin/edit-product' , {docTitle : 'Edit Product' , path: '/admin/edit-product' , product: product});
 
     });
-   
 }
 
+
+// CONTROLLER FUNCTION TO TAKE POST REQUEST FOR EDITTING PRODUCT
+ exports.postEditProduct = (req , res , next)=>{
+     const title = req.body.title ;
+     const price = req.body.price ;
+     const image = req.body.image ;
+     const description = req.body.description ;
+     const productId = req.body.productId ;
+
+     const updatedProduct = {title : title , price: price , image: image , description: description , productId: productId} ;
+
+     ProductModel.updateProduct(productId , updatedProduct) ;
+     res.redirect('/shop');
+
+ }
 
 // CONTROLLER FUNCTION TO GET ALL THE PRODUCTS PAGE
 exports.getProducts = (req , res ,next) => {

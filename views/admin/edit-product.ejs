@@ -28,8 +28,11 @@
 								<div class="form-group">
 									<label><b>Product Description</b></label>
 									<textarea class="form-control" name="description" rows="3"><%= product.description %></textarea>
-								</div>
-
+                                </div>
+                                
+                                <!-- HIDDEN INPUT FIELD FOR PRODUCT ID -->
+                                <input type="hidden" name="productId" value="<%= product.productId %>">
+                                
 								<button class="btn btn-primary btn-block mybtn-corner" type="submit">Update</button>
 							</form>
 						</div>

@@ -58,6 +58,19 @@ module.exports = class Product {
         cb(product);
        });
    }
+
+   //STATIC METHOD TO UPDATE A PRODUCT
+   static updateProduct(id , updatedProduct){
+     getProductsFromFile(products => {
+         const productIndex = products.findIndex(p => p.productId === id) ;
+         products[productIndex] = updatedProduct ;
+
+         fs.writeFile(productFile , JSON.stringify(products) , (err) =>{
+             console.log(err);
+         })
+     })
+
+   }
        
 
 }

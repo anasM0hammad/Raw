@@ -20,11 +20,22 @@ exports.postAddProduct = (req , res , next) => {
 
 // CONTROLLER FUNCTION TO GET THE EDIT PRODUCT VIEW PAGE
 exports.getEditProduct = (req , res ,next) => {
-    res.render('admin/edit-product' , {docTitle : 'Edit Product' , path: '/admin/edit-product'});
+    const productId = req.params.productId;
+    ProductModel.fetchById(productId , (product) =>{
+        if(!product){
+           return res.redirect('/');
+        }
+        res.render('admin/edit-product' , {docTitle : 'Edit Product' , path: '/admin/edit-product' , product: product});
+
+    });
+   
 }
 
 
 // CONTROLLER FUNCTION TO GET ALL THE PRODUCTS PAGE
 exports.getProducts = (req , res ,next) => {
-    res.render('admin/products' , {docTitle : 'All Products' , path: '/admin/products'});
+    ProductModel.fetchAll(products =>{
+        res.render('admin/products' , {docTitle : 'All Products' , path: '/admin/products' , prods: products});
+    });
+   
 }

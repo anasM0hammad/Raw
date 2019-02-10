@@ -4,9 +4,82 @@
 <!-- NAVBAR -->
 <%- include('../includes/nav.ejs'); %>
 
-    <div class="container">
-        <h1>All Products of Admin</h1>
-    </div>
+  <div class="container">
+    <h1>All Your Products</h1><br><br>
+    
+    <!-- ALL PRODUCTS -->
+    <div class="row">
+      <div class="col-sm-12">
+       <% let productCount = prods.length ;  %>
+        <% if(prods.length > 0){
+          let i = 0 ;
+          while(productCount){ %>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="card">
+                  <h5 class="card-header text-center"><i><%= prods[i].title %></i></h5>
+                    <div class="card-body">
+                      <img src="<%= prods[i].image %>" class="mx-auto d-block" width="50%" height="150" ><br>
+                      <h6><b>Price : ₹ <%= prods[i].price %> /-</b></h6>
+                      <p><small><%= prods[i].description %></small></p>
+                      <br>
+                      <a href="/admin/edit-product/<%=prods[i].productId %>"><button class="btn btn-outline-primary btn-block mybtn-corner">Edit Product</button></a>
+                    </div>
+                  </div>
+              </div>
+              <!-- SECOND PRODUCT IN SAME ROW -->
+              <% productCount--  ;
+               i++; 
+                if(productCount){
+              %>
+              <div class="col-sm-4">
+                  <div class="card">
+                    <h5 class="card-header text-center"><i><%= prods[i].title %></i></h5>
+                      <div class="card-body">
+                        <img src="<%= prods[i].image %>" class="mx-auto d-block" width="50%" height="150" ><br>
+                        <h6><b>Price : ₹ <%= prods[i].price %> /-</b></h6>
+                        <p><small><%= prods[i].description %></small></p>
+                        <br>
+                        <a href="/admin/edit-product/<%=prods[i].productId %>"><button class="btn btn-outline-primary btn-block mybtn-corner">Edit Product</button></a>
+                      </div>
+                    </div>
+                </div>
 
-<!-- FOOTER -->
-<%- include('../includes/footer.ejs') %>
+                <!-- THIRD PRODUCT IN SAME ROW -->
+                <%  
+                  productCount-- ; 
+                  i++; 
+                }  
+                 
+                 if(productCount){ %>
+                <div class="col-sm-4">
+                    <div class="card">
+                      <h5 class="card-header text-center"><i><%= prods[i].title %></i></h5>
+                        <div class="card-body">
+                          <img src="<%= prods[i].image %>" class="mx-auto d-block" width="50%" height="150" ><br>
+                          <h6><b>Price : ₹ <%= prods[i].price %> /-</b></h6>
+                          <p><small><%= prods[i].description %></small></p>
+                          <br>
+                          <a href="/admin/edit-product/<%=prods[i].productId %>"><button class="btn btn-outline-primary btn-block mybtn-corner">Edit Product</button></a>
+                        </div>
+                      </div>
+                  </div>
+               
+               <% productCount-- ;
+                  i++ ;
+                 } %> 
+            </div>
+              
+         <% }
+        } else{  %>
+          <div class="alert alert-danger"><b>No Products</b></div>
+       <% }%>   
+      </div>
+      
+   
+  </div>
+
+</div>
+
+ <!-- FOOTER -->
+ <%- include('../includes/footer.ejs') %>

@@ -6,6 +6,7 @@ const cartFile = path.join(rootDir , 'data' , 'cart.json');
 
 module.exports = class Cart{
     
+    // METHOD TO ADD PRODUCT IN CART
     static addProduct(id , price){
       
         fs.readFile(cartFile , (err , content) => {
@@ -40,6 +41,7 @@ module.exports = class Cart{
         
     }
 
+    //METHOD TO DELETE A PRODUCT FROM CART
     static deleteProductFromCart(id , price){
         fs.readFile(cartFile , (err , content) =>{
             if(!err){
@@ -53,6 +55,20 @@ module.exports = class Cart{
                 fs.writeFile(cartFile, JSON.stringify(cart) , (err)=>{
                     console.log(err);
                 });
+            }
+        });
+    }
+
+
+    //METHOD TO FETCH CART
+    static fetchCart(cb){
+        fs.readFile(cartFile , (err , content) =>{
+            if(!err){
+                let cart = JSON.parse(content);
+                cb(cart);
+            }
+            else{
+                cb(null) ;
             }
         });
     }

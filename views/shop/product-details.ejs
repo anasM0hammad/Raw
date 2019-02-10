@@ -16,7 +16,10 @@
                    <h5>Price : ₹ <%= product.price %></h5>
                    <p><small><%= product.description %></small></p>
                    <br>
-                   <button class="btn btn-outline-primary btn-block mybtn-corner">Add to Cart</button>
+                   <form action="/cart" method="POST" class="myForm">
+                    <input type="hidden" name="productId" value="<%= product.productId %>">
+                    <button class="btn btn-outline-primary btn-block mybtn-corner" type="submit">Add to Cart</button>
+                  </form>
                    <a href=""><button class="btn btn-outline-success btn-block mybtn-corner ">Order Now</button></a>  
                  </div>
              </div>

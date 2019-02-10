@@ -12,7 +12,7 @@
 				<div class="col-sm-8">
 					<div class="card" style="background-color:#E9ECEF;">
 						<div class="card-body">
-							<form action="" method="POST">
+							<form action="/admin/edit-product" method="POST">
 								<div class="form-group">
 									<label><b>Product Title</b></label>
 									<input type="text" class="form-control" name="title" value="<%= product.title %>">
@@ -32,7 +32,7 @@
                                 
                                 <!-- HIDDEN INPUT FIELD FOR PRODUCT ID -->
                                 <input type="hidden" name="productId" value="<%= product.productId %>">
-                                
+
 								<button class="btn btn-primary btn-block mybtn-corner" type="submit">Update</button>
 							</form>
 						</div>

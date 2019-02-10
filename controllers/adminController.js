@@ -46,7 +46,7 @@ exports.getEditProduct = (req , res ,next) => {
 
  }
 
-  //CONTROLLER FUNCTION TO DELETE PRODUCt
+  //CONTROLLER FUNCTION TO DELETE PRODUCT
   exports.deleteProduct = (req , res ,next)=>{
     const productId = req.params.productId ;
     ProductModel.deleteProduct(productId);

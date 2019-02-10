@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
+const CartModel = require('./cartModel');
+
 const rootDir = require('../util/path');
 const productFile = path.join(rootDir , 'data' , 'products.json');
 
@@ -76,11 +78,15 @@ module.exports = class Product {
    //STATIC METHOD TO DELETE A PRODUCT
    static deleteProduct(id){
        getProductsFromFile(products => {
+        const product = products.find(p=> p.productId === id) ;
+        const price = product.price ;   
         const index = products.findIndex(p => p.productId === id) ;
         products.splice(index , 1);
 
         fs.writeFile(productFile , JSON.stringify(products) , (err)=>{
-            console.log(err);
+            if(!err){
+                CartModel.deleteProductFromCart(id, price);
+            }
         })
 
        });

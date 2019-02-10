@@ -40,4 +40,21 @@ module.exports = class Cart{
         
     }
 
+    static deleteProductFromCart(id , price){
+        fs.readFile(cartFile , (err , content) =>{
+            if(!err){
+                let cart = JSON.parse(content);
+                const existingProduct = cart.products.find(p=> p.productId === id);
+                const qty = existingProduct.qty ;
+                const updatedProducts = cart.products.filter(p => p.productId !== id);
+                cart.products = updatedProducts ;
+                cart.total = cart.total - qty*price ;
+                
+                fs.writeFile(cartFile, JSON.stringify(cart) , (err)=>{
+                    console.log(err);
+                });
+            }
+        });
+    }
+
 }

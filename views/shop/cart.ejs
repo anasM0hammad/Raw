@@ -10,7 +10,8 @@
          <div class="col-sm-7">
 
         <% if(prods.length > 0){ 
-            for(product of prods){ %>
+            for(product of prods){
+                let price = product.data.price * product.qty ; %>
 
              <div class="card">
                  <div class="card-body">
@@ -22,9 +23,9 @@
                          <div class="col-sm-7">
                             <h5><b><%= product.data.title %></b></h3>
                             <p><small><%= product.data.description %></small></p>
-                            <p><b>Price : <%= product.data.price %> /- </b></p>
+                            <p><b>Price : <%= price %> /- </b></p>
                             <p class="float-right"><b>Quantity : <%= product.qty %></b></p>
-                            <button class="btn btn-sm btn-outline-danger mybtn-corner">Remove</button>
+                            <a href="/delete-cart/<%= product.data.productId %>"><button class="btn btn-sm btn-outline-danger mybtn-corner">Remove</button></a>
                             <button class="btn btn-sm btn-outline-success mybtn-corner">Checkout</button>
                          </div>
                      </div>
@@ -44,9 +45,11 @@
 
           <div class="col-sm-4">
               <% if(prods.length > 0){ %>
-               <h4>Bill :</h4><hr>
-              <% for(product of prods){ %>
-               <p><%= product.data.title %> (<%= product.qty %>) : <span class="float-right">₹ <%= product.data.price %></span> </p>
+               <h4>Your Cart Order</h4><hr>
+              <% for(product of prods){ 
+                let price = product.data.price * product.qty ;  
+                %>
+               <p><%= product.data.title %> (<%= product.qty %>) : <span class="float-right">₹ <%= price %></span> </p>
               <% } %>
               <hr>
               <h5>Total Amount : <span class="float-right">₹ <%= total %></span></h5>  

@@ -29,6 +29,8 @@ exports.getCart = (req , res , next ) =>{
  
 }
 
+
+
 //CONTROLLER FUNCTION TO TAKE CART 
 exports.postCart = (req , res , next) => {
     const productId = req.body.productId;
@@ -40,6 +42,20 @@ exports.postCart = (req , res , next) => {
     });
     res.redirect('/');
 }
+
+
+//CONTROLLER FUNCTION TO DELETE A PRODUCT FROM CART
+exports.getDeleteProductFromCart = (req , res , next) => {
+    const productId = req.params.productId ;
+    ProductModel.fetchById(productId , (product) => {
+        CartModel.deleteProductFromCart(productId , product.price) ;
+        res.redirect('/cart');
+    })
+   
+}
+
+
+
 
 //CONTROLLER FUNCTION TO RENDER CHECKOUT PAGE
 exports.getCheckout = (req , res , next ) =>{

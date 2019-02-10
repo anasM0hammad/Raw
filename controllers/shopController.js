@@ -1,6 +1,9 @@
 //PRODUCT MODEL
 const ProductModel = require('../models/productModel');
 
+//CART MODEL
+const CartModel = require('../models/cartModel');
+
 //CONTROLLER FUNCTION TO RENDER ALL PRODUCTS ON SHOP PAGE
 exports.getProducts = (req , res , next) => {
     ProductModel.fetchAll(products =>{
@@ -16,7 +19,9 @@ exports.getCart = (req , res , next ) =>{
 //CONTROLLER FUNCTION TO TAKE CART 
 exports.postCart = (req , res , next) => {
     const productId = req.body.productId;
-    console.log(productId);
+    ProductModel.fetchById(productId , (product) => {
+        CartModel.addProduct(productId , product.price);
+    });
     res.redirect('/');
 }
 

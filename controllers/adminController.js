@@ -13,9 +13,20 @@ exports.postAddProduct = (req , res , next) => {
     const image = req.body.image ;
     const price = req.body.price ;
     const description = req.body.description ;
-    const product = new ProductModel(title , image , price , description) ;
-    product.save();
-    res.redirect('/shop');
+    // const product = new ProductModel(title , image , price , description) ;
+    // product.save();
+    ProductModel.create({
+        title : title ,
+        image : image ,
+        price : price ,
+        description : description
+    }).then( res => {
+        console.log(res);
+    }).catch(err => {
+        console.log(err);
+    });
+ //   res.redirect('/shop');
+
 }
 
 // CONTROLLER FUNCTION TO GET THE EDIT PRODUCT VIEW PAGE

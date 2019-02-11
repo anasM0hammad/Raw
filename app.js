@@ -8,7 +8,7 @@ const shopRouter = require('./routes/shop');
 const homeRouter = require('./routes/home');
 const notFoundRouter = require('./routes/404');
 
-const db = require('./util/database');
+const sequelize = require('./util/database');
 
 const app = express();
 
@@ -25,4 +25,11 @@ app.use('/admin' , adminRouter);
 
 app.use(notFoundRouter);
 
-app.listen(3000);
+sequelize.sync()
+.then( res =>{
+  app.listen(3000);
+}).catch( err =>{
+    console.log(err);
+});
+
+

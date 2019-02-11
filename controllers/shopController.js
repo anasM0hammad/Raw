@@ -6,9 +6,12 @@ const CartModel = require('../models/cartModel');
 
 //CONTROLLER FUNCTION TO RENDER ALL PRODUCTS ON SHOP PAGE
 exports.getProducts = (req , res , next) => {
-    ProductModel.fetchAll(products =>{
-        res.render('shop/product-list' , {docTitle : 'Shop' , path: '/shop' , prods : products });
-    });    
+    ProductModel.findAll()
+        .then( products => {
+        res.render('shop/product-list' , {docTitle : 'Shop' , path: '/shop' , prods : products})
+        }).catch(err => {
+            console.log(err);
+    });
 }
 
 //CONTROLLER FUNCTION TO RENDER CART

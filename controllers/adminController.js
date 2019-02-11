@@ -13,8 +13,7 @@ exports.postAddProduct = (req , res , next) => {
     const image = req.body.image ;
     const price = req.body.price ;
     const description = req.body.description ;
-    // const product = new ProductModel(title , image , price , description) ;
-    // product.save();
+
     ProductModel.create({
         title : title ,
         image : image ,
@@ -25,9 +24,9 @@ exports.postAddProduct = (req , res , next) => {
     }).catch(err => {
         console.log(err);
     });
- //   res.redirect('/shop');
 
 }
+
 
 // CONTROLLER FUNCTION TO GET THE EDIT PRODUCT VIEW PAGE
 exports.getEditProduct = (req , res ,next) => {
@@ -57,6 +56,8 @@ exports.getEditProduct = (req , res ,next) => {
 
  }
 
+
+
   //CONTROLLER FUNCTION TO DELETE PRODUCT
   exports.deleteProduct = (req , res ,next)=>{
     const productId = req.params.productId ;
@@ -68,8 +69,11 @@ exports.getEditProduct = (req , res ,next) => {
 
 // CONTROLLER FUNCTION TO GET ALL THE PRODUCTS PAGE
 exports.getProducts = (req , res ,next) => {
-    ProductModel.fetchAll(products =>{
-        res.render('admin/products' , {docTitle : 'All Products' , path: '/admin/products' , prods: products});
+    ProductModel.findAll().then( products => {
+        res.render('admin/products' , {docTitle : 'All Products' , path: '/admin/products' , prods : products})
+        })
+        .catch(err => {
+            console.log(err);
     });
    
 }

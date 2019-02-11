@@ -19,8 +19,8 @@ exports.postAddProduct = (req , res , next) => {
         image : image ,
         price : price ,
         description : description
-    }).then( res => {
-       
+    }).then( result => {
+       res.redirect('/shop');
     }).catch(err => {
         console.log(err);
     });
@@ -68,8 +68,14 @@ exports.getEditProduct = (req , res ,next) => {
   //CONTROLLER FUNCTION TO DELETE PRODUCT
   exports.deleteProduct = (req , res ,next)=>{
     const productId = req.params.productId ;
-    ProductModel.deleteProduct(productId);
-    res.redirect('/shop');
+    ProductModel.findById(productId)
+        .then( product => {
+            return product.destroy();
+        }).then( result => {
+            res.redirect('/admin/products');
+        }).catch(err => {
+            console.log(err);
+        });
   }
 
 
@@ -80,7 +86,7 @@ exports.getProducts = (req , res ,next) => {
         res.render('admin/products' , {docTitle : 'All Products' , path: '/admin/products' , prods : products})
         })
         .catch(err => {
-            console.log(err);
-    });
+          console.log(err);
+       });
    
 }

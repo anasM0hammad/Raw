@@ -8,10 +8,10 @@ const CartModel = require('../models/cartModel');
 exports.getProducts = (req , res , next) => {
     ProductModel.findAll()
         .then( products => {
-        res.render('shop/product-list' , {docTitle : 'Shop' , path: '/shop' , prods : products})
+           res.render('shop/product-list' , {docTitle : 'Shop' , path: '/shop' , prods : products})
         }).catch(err => {
             console.log(err);
-    });
+       });
 }
 
 //CONTROLLER FUNCTION TO RENDER CART

@@ -2,6 +2,7 @@
 //PRODUCT MODEL
 const ProductModel = require('../models/productModel');
 
+
 // CONTROLLER FUNCTION TO RENDER THE ADD PRODUCT VIEW PAGE
 exports.getAddProduct = (req , res ,next) => {
     res.render('admin/add-product' , {docTitle : 'Add Product' , path: '/admin/add-product'});
@@ -14,14 +15,19 @@ exports.postAddProduct = (req , res , next) => {
     const price = req.body.price ;
     const description = req.body.description ;
 
+    console.log(req.user);
+
     ProductModel.create({
         title : title ,
         image : image ,
         price : price ,
-        description : description
-    }).then( result => {
+        description : description,
+        userId : req.user.id
+    })
+    .then( result => {
        res.redirect('/shop');
-    }).catch(err => {
+    })
+    .catch(err => {
         console.log(err);
     });
 

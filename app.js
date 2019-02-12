@@ -39,9 +39,10 @@ app.use(notFoundRouter);
 
 //DEFING RELATION
 ProductModel.belongsTo(UserModel , {constraints : true , onDelete : 'CASCADE'}) ;
+UserModel.hasMany(ProductModel);
 
 //INITIALIZING TABLES IN DATABASE
-sequelize.sync({force : true})
+sequelize.sync()
 .then( res =>{
   return UserModel.findById(1) ; 
 })

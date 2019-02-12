@@ -15,8 +15,6 @@ exports.postAddProduct = (req , res , next) => {
     const price = req.body.price ;
     const description = req.body.description ;
 
-    console.log(req.user);
-
     ProductModel.create({
         title : title ,
         image : image ,
@@ -43,7 +41,8 @@ exports.getEditProduct = (req , res ,next) => {
             return res.redirect('/');
          }
          res.render('admin/edit-product' , {docTitle : 'Edit Product' , path: '/admin/edit-product' , product: product}); 
-    }).catch();
+    })
+    .catch();
   
 }
 
@@ -88,7 +87,8 @@ exports.getEditProduct = (req , res ,next) => {
 
 // CONTROLLER FUNCTION TO GET ALL THE PRODUCTS PAGE
 exports.getProducts = (req , res ,next) => {
-    ProductModel.findAll().then( products => {
+    ProductModel.findAll({where : {userId : req.user.id } })
+       .then( products => {
         res.render('admin/products' , {docTitle : 'All Products' , path: '/admin/products' , prods : products})
         })
         .catch(err => {

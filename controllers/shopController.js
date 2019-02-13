@@ -16,19 +16,14 @@ exports.getProducts = (req , res , next) => {
 
 //CONTROLLER FUNCTION TO RENDER CART
 exports.getCart = (req , res , next ) =>{
- const cartProduct = [];
-  CartModel.fetchCart((cart) =>{
-    ProductModel.fetchAll(products => {
-        for(product of products){
-            const productData = cart.products.find(p=> p.productId === product.productId);
-            if(productData){
-                cartProduct.push({data : product , qty: productData.qty});
-            }
-        }
-
-        res.render('shop/cart' , {docTitle: 'Cart' , path: '/cart' , prods: cartProduct , total: cart.total});
-    }) ;
-  }) ; 
+  req.user.getCart()
+  .then( cart => {
+     return cart.getProducts();
+  })
+  .then(products => {
+    res.render('shop/cart' , {docTitle: 'Cart' , path: '/cart' , prods: products , total: cart.total});
+  })
+  .catch();
  
 }
 

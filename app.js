@@ -3,17 +3,12 @@ const bodyParser = require('body-parser');
 
 const path = require('path');
 
-const adminRouter = require('./routes/admin');
-const shopRouter = require('./routes/shop');
-const homeRouter = require('./routes/home');
+// const adminRouter = require('./routes/admin');
+// const shopRouter = require('./routes/shop');
+// const homeRouter = require('./routes/home');
 const notFoundRouter = require('./routes/404');
 
-const ProductModel = require('./models/productModel');
-const UserModel = require('./models/userModel');
-const CartModel = require('./models/cartModel') ;
-const CartItemModel = require('./models/cart-item');
-
-const sequelize = require('./util/database');
+const mongoConnect = require('./util/database');
 
 const app = express();
 
@@ -22,47 +17,21 @@ app.set('view engine' , 'ejs');
 app.use(express.static(path.join(__dirname , 'public')));
 app.use(bodyParser.urlencoded({extended:false}));
 
-app.use((req , res , next) => {
-  UserModel.findById(1)
-  .then(user => {
-    req.user = user ;
-    next();
-  })
-  .catch();
-});
 
-app.use(homeRouter);
+// app.use(homeRouter);
 
-app.use(shopRouter);
+// app.use(shopRouter);
 
-app.use('/admin' , adminRouter);
+// app.use('/admin' , adminRouter);
 
 app.use(notFoundRouter);
 
-//DEFING RELATION
-ProductModel.belongsTo(UserModel , {constraints : true , onDelete : 'CASCADE'}) ;
-UserModel.hasMany(ProductModel);
-UserModel.hasOne(CartModel) ;
-CartModel.belongsToMany(ProductModel , {through : CartItemModel});
-
+mongoConnect(client => {
+  console.log(client);
+  app.listen(3000);
+});
 
 
 //INITIALIZING TABLES IN DATABASE
-sequelize.sync({force : true})
-.then( res =>{
-  return UserModel.findById(1) ; 
-})
-.then( user =>{
-  if(!user){
-   return UserModel.create({ name : 'Anas' , email : 'anas@gmail.com'});
-  }
-  return user ;
-})
-.then( user =>{
-  app.listen(3000);
-})
-.catch( err =>{
-    console.log(err);
-});
 
 

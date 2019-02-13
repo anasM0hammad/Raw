@@ -11,7 +11,7 @@
              
         <% if(prods.length > 0){    
             for(product of prods){
-                let price = product.data.price * product.qty ; %>
+                let price = product.price * product.qty ; %>
 
              <div class="card">
                  <div class="card-body">
@@ -21,11 +21,11 @@
                          </div>
                          <div class="col-sm-1"></div>
                          <div class="col-sm-7">
-                            <h5><b><%= product.data.title %></b></h3>
-                            <p><small><%= product.data.description %></small></p>
+                            <h5><b><%= product.title %></b></h3>
+                            <p><small><%= product.description %></small></p>
                             <p><b>Price : <%= price %> /- </b></p>
                             <p class="float-right"><b>Quantity : <%= product.qty %></b></p>
-                            <a href="/delete-cart/<%= product.data.productId %>"><button class="btn btn-sm btn-outline-danger mybtn-corner">Remove</button></a>
+                            <a href="/delete-cart/<%= product.productId %>"><button class="btn btn-sm btn-outline-danger mybtn-corner">Remove</button></a>
                             <button class="btn btn-sm btn-outline-success mybtn-corner">Checkout</button>
                          </div>
                      </div>
@@ -49,9 +49,9 @@
                     <div class="card-body">
                         <h4>Your Cart Order</h4><hr>
                         <% for(product of prods){ 
-                            let price = product.data.price * product.qty ;  
+                            let price = product.price * product.qty ;  
                             %>
-                            <p><%= product.data.title %> (<%= product.qty %>) : <span class="float-right">₹ <%= price %></span> </p>
+                            <p><%= product.title %> (<%= product.qty %>) : <span class="float-right">₹ <%= price %></span> </p>
                         <% } %>
                         <hr>
                         <h5>Total Amount : <span class="float-right">₹ <%= total %></span></h5>  

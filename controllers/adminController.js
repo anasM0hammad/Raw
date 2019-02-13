@@ -14,14 +14,10 @@ exports.postAddProduct = (req , res , next) => {
     const image = req.body.image ;
     const price = req.body.price ;
     const description = req.body.description ;
+    
+    const product = new ProductModel(title , price ,image , description) ;
 
-    ProductModel.create({
-        title : title ,
-        image : image ,
-        price : price ,
-        description : description,
-        userId : req.user.id
-    })
+    product.save()
     .then( result => {
        res.redirect('/shop');
     })

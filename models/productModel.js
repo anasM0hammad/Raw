@@ -8,6 +8,7 @@ class ProductModel {
         this.image = image;
     }
 
+    //TO SAVE THE DATA
     save(){
         const db = getDb();
         return db.collection('products').insertOne(this)
@@ -16,6 +17,18 @@ class ProductModel {
         })
         .catch();
     }
+
+    //TO FETCH ALL THE PRODUCTS
+    static fetchAll(){
+        const db = getDb();
+        return db.collection('products').find().toArray()
+        .then(products => {
+            return products;
+        })
+        .catch() ;
+
+    }
+
 }
 
 module.exports = ProductModel ;

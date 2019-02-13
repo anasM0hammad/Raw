@@ -82,8 +82,8 @@ exports.getEditProduct = (req , res ,next) => {
 
 
 // CONTROLLER FUNCTION TO GET ALL THE PRODUCTS PAGE
-exports.getProducts = (req , res ,next) => {
-    ProductModel.findAll({where : {userId : req.user.id } })
+ exports.getProducts = (req , res ,next) => {
+    ProductModel.fetchAll()
        .then( products => {
         res.render('admin/products' , {docTitle : 'All Products' , path: '/admin/products' , prods : products})
         })

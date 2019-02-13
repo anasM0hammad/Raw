@@ -10,6 +10,8 @@ const notFoundRouter = require('./routes/404');
 
 const ProductModel = require('./models/productModel');
 const UserModel = require('./models/userModel');
+const CartModel = require('./models/cartModel') ;
+const CartItemModel = require('./models/cart-item');
 
 const sequelize = require('./util/database');
 
@@ -40,9 +42,13 @@ app.use(notFoundRouter);
 //DEFING RELATION
 ProductModel.belongsTo(UserModel , {constraints : true , onDelete : 'CASCADE'}) ;
 UserModel.hasMany(ProductModel);
+UserModel.hasOne(CartModel) ;
+CartModel.belongsToMany(ProductModel , {through : CartItemModel});
+
+
 
 //INITIALIZING TABLES IN DATABASE
-sequelize.sync()
+sequelize.sync({force : true})
 .then( res =>{
   return UserModel.findById(1) ; 
 })

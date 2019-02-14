@@ -40,9 +40,23 @@ class UserModel {
     }
 
 
-    //GET CART 
+    //RETURN ALL THE PRODUCTS IN CART WITH QUANTITY
     getCart(){
-       return this.cart ;
+       const db = getDb();
+       const prodIds = this.cart.item.map(i => {
+           return i.prodId ;
+       }) ;
+
+      return db.collection('products').find({_id : {$in : prodIds}}).toArray()
+       .then(products => {
+        return products.map(p => {
+           return {...p , qty : this.cart.item.find(i => {
+                return i.prodId.toString() === p._id.toString() ;
+           }).qty 
+          };
+        })
+       }) 
+     
     }
 
     //FIND USER BY ID

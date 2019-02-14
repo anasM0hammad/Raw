@@ -13,19 +13,18 @@ exports.getProducts = (req , res , next) => {
        });
 }
 
-    //CONTROLLER FUNCTION TO RENDER CART
-    exports.getCart = (req , res , next ) =>{
-    req.user.getCart()
-    .then( cart => {
-        return cart.getProducts();
-    })
-    .then(products => {
-        res.render('shop/cart' , {docTitle: 'Cart' , path: '/cart' , prods: products , total: cart.total});
-    })
-    .catch();
-    
-    }
-
+    //CONTROLLER FUNCTION TO RENDER CART 
+      exports.getCart = (req , res , next) => {
+          let total = 0 ;
+        req.user.getCart()
+        .then(products => {
+            for(product of products){
+                total = total + (product.price * product.qty) ;
+            }
+            res.render('shop/cart' , {docTitle : 'Cart' , path : '/cart' , prods : products , total : total});
+        })
+        .catch();
+      }
 
 
 //CONTROLLER FUNCTION TO TAKE CART 
@@ -35,7 +34,7 @@ exports.postCart = (req , res , next) => {
     ProductModel.findById(productId)
     .then(product => {
         price = product.price ;
-        
+
         const user = req.user ;
         user.addToCart(productId , price)
         .then(result => {

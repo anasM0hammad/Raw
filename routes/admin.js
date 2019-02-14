@@ -20,7 +20,7 @@ router.get('/edit-product/:productId' , adminController.getEditProduct);
 router.post('/edit-product' , adminController.postEditProduct);
 
 //ROUTE FOR DELETING PRODUCT REQ
-//router.get('/delete-product/:productId' , adminController.deleteProduct)
+router.get('/delete-product/:productId' , adminController.deleteProduct)
 
 //ROUTE TO GET ADMIN PRODUCTS PAGE
 router.get('/products' , adminController.getProducts);

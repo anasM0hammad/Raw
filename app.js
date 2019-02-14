@@ -4,12 +4,12 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
  const adminRouter = require('./routes/admin');
-//const shopRouter = require('./routes/shop');
+const shopRouter = require('./routes/shop');
 const homeRouter = require('./routes/home');
 const notFoundRouter = require('./routes/404');
 
 const mongoConnect = require('./util/database').mongoConnect;
-const userModel = require('./models/userModel') ;
+const UserModel = require('./models/userModel') ;
 
 const app = express();
 
@@ -19,9 +19,9 @@ app.use(express.static(path.join(__dirname , 'public')));
 app.use(bodyParser.urlencoded({extended:false}));
 
 app.use((req , res , next ) => {
-  userModel.findById('5c6567971c9d440000c308b8')
+  UserModel.findById('5c6567971c9d440000c308b8')
   .then(user => {
-    req.user = user;
+    req.user = new UserModel(user.name , user.email , user.cart, user._id) ;
     next();
   })
   .catch(err =>{
@@ -31,7 +31,7 @@ app.use((req , res , next ) => {
 
 app.use(homeRouter);
 
-//app.use(shopRouter);
+app.use(shopRouter);
 
 app.use('/admin' , adminRouter);
 

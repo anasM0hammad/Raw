@@ -1,12 +1,11 @@
 //PRODUCT MODEL
 const ProductModel = require('../models/productModel');
+const UserModel = require('../models/userModel');
 
-//CART MODEL
-const CartModel = require('../models/cartModel');
 
 //CONTROLLER FUNCTION TO RENDER ALL PRODUCTS ON SHOP PAGE
 exports.getProducts = (req , res , next) => {
-    ProductModel.findAll()
+    ProductModel.fetchAll()
         .then( products => {
            res.render('shop/product-list' , {docTitle : 'Shop' , path: '/shop' , prods : products})
         }).catch(err => {
@@ -14,31 +13,34 @@ exports.getProducts = (req , res , next) => {
        });
 }
 
-//CONTROLLER FUNCTION TO RENDER CART
-exports.getCart = (req , res , next ) =>{
-  req.user.getCart()
-  .then( cart => {
-     return cart.getProducts();
-  })
-  .then(products => {
-    res.render('shop/cart' , {docTitle: 'Cart' , path: '/cart' , prods: products , total: cart.total});
-  })
-  .catch();
- 
-}
+    //CONTROLLER FUNCTION TO RENDER CART
+    exports.getCart = (req , res , next ) =>{
+    req.user.getCart()
+    .then( cart => {
+        return cart.getProducts();
+    })
+    .then(products => {
+        res.render('shop/cart' , {docTitle: 'Cart' , path: '/cart' , prods: products , total: cart.total});
+    })
+    .catch();
+    
+    }
 
 
 
 //CONTROLLER FUNCTION TO TAKE CART 
 exports.postCart = (req , res , next) => {
     const productId = req.body.productId;
-    ProductModel.fetchById(productId , (product) => {
-        if(!product){
-           return res.redirect('/');
-        }
-        CartModel.addProduct(productId , product.price);
-    });
-    res.redirect('/');
+    const user = req.user ;
+    user.addToCart(productId)
+    .then(result => {
+        console.log(result);
+        res.redirect('/');
+    })
+    .catch(err => {
+        console.log(err);
+    })
+  
 }
 
 

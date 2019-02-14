@@ -11,18 +11,18 @@ const router = express.Router() ;
 router.get('/shop', shopController.getProducts);
 
 //ROUTE TO GET CART
-router.get('/cart' , shopController.getCart);
+//router.get('/cart' , shopController.getCart);
 
 //ROUTE FOR POST CART REQUEST
 router.post('/cart' , shopController.postCart);
 
 //ROUTE TO DELETE AN ITEM IN CART
-router.get('/delete-cart/:productId' , shopController.getDeleteProductFromCart);
+//router.get('/delete-cart/:productId' , shopController.getDeleteProductFromCart);
 
 //ROUTE TO GET CHECKOUT
-router.get('/checkout' , shopController.getCheckout);
+//router.get('/checkout' , shopController.getCheckout);
 
 //ROUTE TO GET PRODUCT DETAILS
-router.get('/product-details/:productId' , shopController.getProductDetails);
+//router.get('/product-details/:productId' , shopController.getProductDetails);
 
 module.exports = router ;

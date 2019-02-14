@@ -54,10 +54,11 @@ exports.postCart = (req , res , next) => {
 //CONTROLLER FUNCTION TO DELETE A PRODUCT FROM CART
 exports.getDeleteProductFromCart = (req , res , next) => {
     const productId = req.params.productId ;
-    ProductModel.fetchById(productId , (product) => {
-        CartModel.deleteProductFromCart(productId , product.price) ;
+    req.user.deleteItemFromCart(productId)
+    .then(result => {
         res.redirect('/cart');
     })
+    .catch();
    
 }
 

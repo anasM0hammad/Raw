@@ -59,6 +59,19 @@ class UserModel {
      
     }
 
+
+    //DELETING CART ITEM
+    deleteItemFromCart(prodId){
+        const updatedCartItem = this.cart.item.filter(p => {
+            return p.prodId.toString() !== prodId.toString();
+        });
+        const db = getDb();
+        return db.collection('users').updateOne({_id : new mongodb.ObjectId(this._id)} , {$set : {cart :{item : updatedCartItem}}}) ;
+    }
+
+
+
+
     //FIND USER BY ID
     static findById(id){
         const db = getDb();

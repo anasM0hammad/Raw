@@ -31,16 +31,24 @@ exports.getProducts = (req , res , next) => {
 //CONTROLLER FUNCTION TO TAKE CART 
 exports.postCart = (req , res , next) => {
     const productId = req.body.productId;
-    const user = req.user ;
-    user.addToCart(productId)
-    .then(result => {
-        console.log(result);
-        res.redirect('/');
+    let price ;
+    ProductModel.findById(productId)
+    .then(product => {
+        price = product.price ;
+        
+        const user = req.user ;
+        user.addToCart(productId , price)
+        .then(result => {
+            res.redirect('/');
+        })
+        .catch(err => {
+            console.log(err);
+        });
+      
     })
-    .catch(err => {
-        console.log(err);
-    })
-  
+    .catch();
+
+   
 }
 
 

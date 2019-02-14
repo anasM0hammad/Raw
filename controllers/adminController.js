@@ -38,7 +38,9 @@ exports.getEditProduct = (req , res ,next) => {
          }
          res.render('admin/edit-product' , {docTitle : 'Edit Product' , path: '/admin/edit-product' , product: product}); 
     })
-    .catch();
+    .catch(err =>{
+        console.log(err);
+    });
   
 }
 
@@ -51,33 +53,32 @@ exports.getEditProduct = (req , res ,next) => {
      const description = req.body.description ;
      const productId = req.body.productId ;
 
-     ProductModel.findById(productId)
-     .then(product => {
-         product.title = title ;
-         product.price = price ;
-         product.image = image ;
-         product.description = description;
-         return product.save();
-     }).then(result =>{
-        res.redirect('/shop');
-     }).catch();
+     product = {title : title , price : price , image : image , description : description} ;
+
+     ProductModel.updateProduct(productId , product)
+     .then(result =>{
+         res.redirect('/shop');
+     })
+     .catch(err => {
+         console.log(err);
+     });
 
  }
 
 
 
   //CONTROLLER FUNCTION TO DELETE PRODUCT
-  exports.deleteProduct = (req , res ,next)=>{
-    const productId = req.params.productId ;
-    ProductModel.findById(productId)
-        .then( product => {
-            return product.destroy();
-        }).then( result => {
-            res.redirect('/admin/products');
-        }).catch(err => {
-            console.log(err);
-        });
-  }
+//   exports.deleteProduct = (req , res ,next)=>{
+//     const productId = req.params.productId ;
+//     ProductModel.findById(productId)
+//         .then( product => {
+//             return product.destroy();
+//         }).then( result => {
+//             res.redirect('/admin/products');
+//         }).catch(err => {
+//             console.log(err);
+//         });
+//   }
 
 
 

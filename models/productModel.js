@@ -1,3 +1,5 @@
+const mongodb = require('mongodb') ;
+
 const getDb = require('../util/database').getDb;
 
 class ProductModel {
@@ -27,6 +29,29 @@ class ProductModel {
         })
         .catch() ;
 
+    }
+
+
+    //TO FETCH SINGLE PRODUCT
+    static findById(prodId){
+        const db = getDb();
+        return db.collection('products').find({ _id : new mongodb.ObjectId(prodId) })
+        .next()
+        .then(product => {
+            return product ;
+        })
+        .catch();
+    }
+
+
+    //TO EDIT PRODUCT
+    static updateProduct(prodId , product){
+        const db = getDb();
+        return db.collection('products').updateOne({ _id : new mongodb.ObjectId(prodId)} , {$set : product})
+        .then(result => {
+           
+        })
+        .catch();
     }
 
 }

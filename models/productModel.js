@@ -3,11 +3,12 @@ const mongodb = require('mongodb') ;
 const getDb = require('../util/database').getDb;
 
 class ProductModel {
-    constructor(title , price , image , description){
+    constructor(title , price , image , description , userId){
         this.title = title ;
         this.description = description ;
         this.price = price ;
         this.image = image;
+        this.userId = userId ;
     }
 
     //TO SAVE THE DATA

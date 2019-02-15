@@ -78,17 +78,17 @@ exports.getEditProduct = (req , res ,next) => {
 
 
 
-//   //CONTROLLER FUNCTION TO DELETE PRODUCT
-//   exports.deleteProduct = (req , res ,next)=>{
-//     const productId = req.params.productId ;
-//     ProductModel.deleteById(productId)
-//         .then( result => {
-//            res.redirect('/admin/products');
-//         })
-//         .catch(err => {
-//             console.log(err);
-//         });
-//   }
+  //CONTROLLER FUNCTION TO DELETE PRODUCT
+  exports.deleteProduct = (req , res ,next)=>{
+    const productId = req.params.productId ;
+    Product.findByIdAndRemove(productId)
+        .then( result => {
+           res.redirect('/admin/products');
+        })
+        .catch(err => {
+            console.log(err);
+        });
+  }
 
 
 

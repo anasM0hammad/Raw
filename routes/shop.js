@@ -19,10 +19,14 @@ router.post('/cart' , shopController.postCart);
 //ROUTE TO DELETE AN ITEM IN CART
 router.get('/delete-cart/:productId' , shopController.getDeleteProductFromCart);
 
-//ROUTE TO GET CHECKOUT
-//router.get('/checkout' , shopController.getCheckout);
 
 //ROUTE TO GET PRODUCT DETAILS
-//router.get('/product-details/:productId' , shopController.getProductDetails);
+router.get('/product-details/:productId' , shopController.getProductDetails);
+
+//ROUTE TO GET ORDER PAGE
+router.get('/order' , shopController.getOrder);
+
+//ROUTE TO ADD CART TO ORDER
+router.post('/order' , shopController.postOrder) ;
 
 module.exports = router ;

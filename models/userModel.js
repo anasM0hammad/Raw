@@ -78,6 +78,38 @@ class UserModel {
         return db.collection('users').findOne({ _id : new mongodb.ObjectId(id)}) ;
     }
 
+
+    //ADD ORDER FROM CART
+    addOrder(){
+        let order ;
+        const d = new Date() ;
+        const date = d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear() ;
+        const time = d.getHours() + ":" + d.getMinutes() ;
+       return this.getCart()
+        .then( products => {
+            order = {
+                item : products ,
+                date : date ,
+                time : time ,
+                user : {
+                    _id : new mongodb.ObjectId(this._id) ,
+                    name : this.name 
+                }
+            }
+            const db = getDb();
+            return db.collection('orders').insertOne(order) ;
+
+        })
+        .then(result => {
+            const db= getDb();
+            this.cart.item = [] ;
+          return  db.collection('users').updateOne({_id : new mongodb.ObjectId(this._id)} , {$set : {cart : {item : []}}} );
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
+
 }
 
 module.exports = UserModel ;

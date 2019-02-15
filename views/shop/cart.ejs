@@ -13,7 +13,7 @@
             for(product of prods){
                 let price = product.price * product.qty ; %>
 
-             <div class="card">
+             <div class="card shadow mb-3 bg-white">
                  <div class="card-body">
                      <div class="row">
                          <div class="col-sm-4">
@@ -26,7 +26,10 @@
                             <p><b>Price : <%= price %> /- </b></p>
                             <p class="float-right"><b>Quantity : <%= product.qty %></b></p>
                             <a href="/delete-cart/<%= product._id %>"><button class="btn btn-sm btn-outline-danger mybtn-corner">Remove</button></a>
-                            <button class="btn btn-sm btn-outline-success mybtn-corner">Checkout</button>
+                            <form method="POST" action="/order">
+                                <input type="hidden" class="myForm" name="order">
+                                <button class="btn btn-sm btn-outline-success mybtn-corner">Order All</button>
+                            </form>
                          </div>
                      </div>
                  </div>
@@ -45,7 +48,7 @@
 
           <div class="col-sm-4">
               <% if(prods.length > 0){ %>
-                <div class="card">
+                <div class="card shadow mb-3 bg-white">
                     <div class="card-body">
                         <h4>Your Cart Order</h4><hr>
                         <% for(product of prods){ 

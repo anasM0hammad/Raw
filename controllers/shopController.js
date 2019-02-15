@@ -58,16 +58,10 @@ exports.getDeleteProductFromCart = (req , res , next) => {
     .then(result => {
         res.redirect('/cart');
     })
-    .catch();
+    .catch(err => {
+        console.log(err);
+    });
    
-}
-
-
-
-
-//CONTROLLER FUNCTION TO RENDER CHECKOUT PAGE
-exports.getCheckout = (req , res , next ) =>{
-    res.render('shop/checkout' , {docTitle: 'Checkout' , path: '/checkout'});
 }
 
 
@@ -76,7 +70,24 @@ exports.getProductDetails = (req , res , next ) =>{
     const productId = req.params.productId ;
     ProductModel.findById(productId).then(product =>{
         res.render('shop/product-details' , {docTitle: 'Product Details' , path: '/product-details' , product: product});
-    }).catch(); 
-       
+    }).catch();       
    
+}
+
+
+
+//CONTROLLER FUNCTION TO GET ORDER PAGE
+exports.getOrder = (req , res , next ) => {
+    res.render('shop/order' , {docTitle : 'Orders' , path : '/order'}) ;
+}
+
+
+exports.postOrder = (req , res , next) => {
+    req.user.addOrder()
+    .then(result => {
+        res.redirect('/order');
+    })
+    .catch(err => {
+        console.log(err);
+    })
 }

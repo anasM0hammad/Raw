@@ -1,5 +1,6 @@
 //PRODUCT MODEL
 const Product = require('../models/productModel');
+const User = require('../models/userModel');
 
 
 //CONTROLLER FUNCTION TO RENDER ALL PRODUCTS ON SHOP PAGE
@@ -12,18 +13,33 @@ exports.getProducts = (req , res , next) => {
        });
 }
 
-//     //CONTROLLER FUNCTION TO RENDER CART 
-//       exports.getCart = (req , res , next) => {
-//           let total = 0 ;
-//         req.user.getCart()
-//         .then(products => {
-//             for(product of products){
-//                 total = total + (product.price * product.qty) ;
-//             }
-//             res.render('shop/cart' , {docTitle : 'Cart' , path : '/cart' , prods : products , total : total});
-//         })
-//         .catch();
-//       }
+
+
+    //CONTROLLER FUNCTION TO RENDER CART 
+      exports.getCart = (req , res , next) => {
+        let total = 0 ;
+        let products = [];
+        req.user.populate('cart.item.prodId').execPopulate()
+        .then(user => {
+            products = user.cart.item ;
+            for(product of products){
+                total = total + (product.prodId.price * product.qty) ;
+            }
+            res.render('shop/cart' , {docTitle : 'Cart' , path : '/cart' , prods : products , total : total});
+        })
+        .catch(err => {
+            console.log(err);
+        }) ;
+
+        // req.user.getCart()
+        // .then(products => {
+        //     for(product of products){
+        //         total = total + (product.price * product.qty) ;
+        //     }
+        //     res.render('shop/cart' , {docTitle : 'Cart' , path : '/cart' , prods : products , total : total});
+        // })
+        // .catch();
+      }
 
 
 //CONTROLLER FUNCTION TO TAKE CART 

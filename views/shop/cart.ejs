@@ -11,22 +11,22 @@
              
         <% if(prods.length > 0){    
             for(product of prods){
-                let price = product.price * product.qty ; %>
+                let price = product.prodId.price * product.qty ; %>
 
              <div class="card shadow mb-3 bg-white">
                  <div class="card-body">
                      <div class="row">
                          <div class="col-sm-4">
-                             <img src="<%= product.image %>" width="100%" height="150px">
+                             <img src="<%= product.prodId.image %>" width="100%" height="150px">
                          </div>
                          <div class="col-sm-1"></div>
                          <div class="col-sm-7">
-                            <h5><b><%= product.title %></b></h3>
-                            <p><small><%= product.description %></small></p>
+                            <h5><b><%= product.prodId.title %></b></h3>
+                            <p><small><%= product.prodId.description %></small></p>
                             <p><b>Price : <%= price %> /- </b></p>
                             <p class="float-right"><b>Quantity : <%= product.qty %></b></p>
                             <a href="/delete-cart/<%= product._id %>"><button class="btn btn-sm btn-outline-danger mybtn-corner">Remove</button></a>
-                            <form method="POST" action="/order">
+                            <form method="POST" action="/order" style="display : inline ;">
                                 <input type="hidden" class="myForm" name="order">
                                 <button class="btn btn-sm btn-outline-success mybtn-corner">Order All</button>
                             </form>
@@ -52,9 +52,9 @@
                     <div class="card-body">
                         <h4>Your Cart Order</h4><hr>
                         <% for(product of prods){ 
-                            let price = product.price * product.qty ;  
+                            let price = product.prodId.price * product.qty ;  
                             %>
-                            <p><%= product.title %> (<%= product.qty %>) : <span class="float-right">₹ <%= price %></span> </p>
+                            <p><%= product.prodId.title %> (<%= product.qty %>) : <span class="float-right">₹ <%= price %></span> </p>
                         <% } %>
                         <hr>
                         <h5>Total Amount : <span class="float-right">₹ <%= total %></span></h5>  

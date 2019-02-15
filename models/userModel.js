@@ -32,25 +32,25 @@
 
 
   //ADD PRODUCT TO THE CART
-  UserSchema.methods.addToCart = function(productId){
-    const productIndex = this.cart.item.findIndex(p => p.prodId.toString() === productId.toString()) ;
-    let newQty = 1 ;
-    const updatedCartItem = [...this.cart.item] ;
+    UserSchema.methods.addToCart = function(productId){
+        const productIndex = this.cart.item.findIndex(p => p.prodId.toString() === productId.toString()) ;
+        let newQty = 1 ;
+        const updatedCartItem = [...this.cart.item] ;
 
-    if(productIndex >= 0){
-       updatedCartItem[productIndex].qty = this.cart.item[productIndex].qty + 1 ;
+        if(productIndex >= 0){
+           updatedCartItem[productIndex].qty = this.cart.item[productIndex].qty + 1 ;
+        }
+        else{
+            updatedCartItem.push({prodId : productId , qty : newQty }) ;
+        }
+
+       const updatedCart = {
+            item : updatedCartItem
+        } ;
+
+        this.cart = updatedCart ;
+        return this.save();
     }
-    else{
-        updatedCartItem.push({prodId : productId , qty : newQty }) ;
-    }
-
-   const updatedCart = {
-        item : updatedCartItem
-    } ;
-
-    this.cart = updatedCart ;
-    return this.save();
-}
 
 
  module.exports =  mongoose.model('User' , UserSchema );

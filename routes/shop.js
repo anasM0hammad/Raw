@@ -10,8 +10,8 @@ const router = express.Router() ;
 //ROUTE TO GET SHOP PAGE
 router.get('/shop', shopController.getProducts);
 
-// //ROUTE TO GET CART
-// router.get('/cart' , shopController.getCart);
+//ROUTE TO GET CART
+router.get('/cart' , shopController.getCart);
 
 //ROUTE FOR POST CART REQUEST
 router.post('/cart' , shopController.postCart);

@@ -10,7 +10,7 @@ const path = require('path');
  const notFoundRouter = require('./routes/404');
 
 
-//const UserModel = require('./models/userModel') ;
+const User = require('./models/userModel') ;
 
 const app = express();
 
@@ -19,16 +19,16 @@ app.set('view engine' , 'ejs');
 app.use(express.static(path.join(__dirname , 'public')));
 app.use(bodyParser.urlencoded({extended:false}));
 
-// app.use((req , res , next ) => {
-//   UserModel.findById('5c6567971c9d440000c308b8')
-//   .then(user => {
-//     req.user = new UserModel(user.name , user.email , user.cart, user._id) ;
-//     next();
-//   })
-//   .catch(err =>{
-//     console.log(err);
-//   });
-// });
+app.use((req , res , next ) => {
+  User.findById('5c671c9f14ac4009fcf8bc14')
+  .then(user => {
+    req.user = user ;
+    next();
+  })
+  .catch(err =>{
+    console.log(err);
+  });
+});
 
  app.use(homeRouter);
 
@@ -40,8 +40,20 @@ app.use(notFoundRouter);
 
 mongoose.connect('mongodb+srv://anasM0hammad:dWqmd6zjdCD1mV4D@raw-bawen.mongodb.net/raw?retryWrites=true')
 .then(result => {
-  console.log('CONNECTED');
-  app.listen(3000);
+  User.findOne()
+  .then(user => {
+    if(!user){
+      const user = new User({
+        name : 'Anas',
+        email : 'anas123@gmail.com',
+        cart : {
+          item : []
+        }
+      }) ;
+      user.save() ;
+    }
+    app.listen(3000);
+  }) ;
 })
 .catch(err => {
   console.log(err);

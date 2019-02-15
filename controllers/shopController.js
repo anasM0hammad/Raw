@@ -78,7 +78,13 @@ exports.getProductDetails = (req , res , next ) =>{
 
 //CONTROLLER FUNCTION TO GET ORDER PAGE
 exports.getOrder = (req , res , next ) => {
-    res.render('shop/order' , {docTitle : 'Orders' , path : '/order'}) ;
+    req.user.fetchOrders()
+    .then(orders => {
+        res.render('shop/order' , {docTitle : 'Orders' , path : '/order' , orders : orders}) ;
+    })
+   .catch(err => {
+       console.log(err);
+   })
 }
 
 

@@ -33,42 +33,48 @@ exports.postAddProduct = (req , res , next) => {
 }
 
 
-// // CONTROLLER FUNCTION TO GET THE EDIT PRODUCT VIEW PAGE
-// exports.getEditProduct = (req , res ,next) => {
-//     const productId = req.params.productId;
-//     ProductModel.findById(productId)
-//     .then( product => {
-//         if(!product){
-//             return res.redirect('/');
-//          }
-//          res.render('admin/edit-product' , {docTitle : 'Edit Product' , path: '/admin/edit-product' , product: product}); 
-//     })
-//     .catch(err =>{
-//         console.log(err);
-//     });
+// CONTROLLER FUNCTION TO GET THE EDIT PRODUCT VIEW PAGE
+exports.getEditProduct = (req , res ,next) => {
+    const productId = req.params.productId;
+    Product.findById(productId)
+    .then( product => {
+        if(!product){
+            return res.redirect('/');
+         }
+         res.render('admin/edit-product' , {docTitle : 'Edit Product' , path: '/admin/edit-product' , product: product}); 
+    })
+    .catch(err =>{
+        console.log(err);
+    });
   
-// }
+ }
 
 
-// // CONTROLLER FUNCTION TO TAKE POST REQUEST FOR EDITTING PRODUCT
-//  exports.postEditProduct = (req , res , next)=>{
-//      const title = req.body.title ;
-//      const price = req.body.price ;
-//      const image = req.body.image ;
-//      const description = req.body.description ;
-//      const productId = req.body.productId ;
+// CONTROLLER FUNCTION TO TAKE POST REQUEST FOR EDITTING PRODUCT
+ exports.postEditProduct = (req , res , next)=>{
+     const title = req.body.title ;
+     const price = req.body.price ;
+     const image = req.body.image ;
+     const description = req.body.description ;
+     const productId = req.body.productId ;
 
-//      product = {title : title , price : price , image : image , description : description} ;
+     Product.findById(productId)
+     .then(product => {
+         product.title = title ;
+         product.price = price ;
+         product.image = image ;
+         product.description = description ;
 
-//      ProductModel.updateProduct(productId , product)
-//      .then(result =>{
-//          res.redirect('/shop');
-//      })
-//      .catch(err => {
-//          console.log(err);
-//      });
+         return product.save();
+     })
+     .then(result =>{
+         res.redirect('/shop');
+     })
+     .catch(err => {
+         console.log(err);
+     });
 
-//  }
+ }
 
 
 

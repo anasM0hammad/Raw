@@ -13,11 +13,11 @@ router.get('/add-product', adminController.getAddProduct);
 //ROUTE FOR ADD PRODUCT
 router.post('/add-product' , adminController.postAddProduct);
 
-// //ROUTE FOR EDIT PRODUCT PAGE
-// router.get('/edit-product/:productId' , adminController.getEditProduct);
+//ROUTE FOR EDIT PRODUCT PAGE
+router.get('/edit-product/:productId' , adminController.getEditProduct);
 
-// //ROUTE FOR POST REQ OF EDITTING PAGE
-// router.post('/edit-product' , adminController.postEditProduct);
+//ROUTE FOR POST REQ OF EDITTING PAGE
+router.post('/edit-product' , adminController.postEditProduct);
 
 // //ROUTE FOR DELETING PRODUCT REQ
 // router.get('/delete-product/:productId' , adminController.deleteProduct)

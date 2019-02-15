@@ -1,6 +1,6 @@
 
 //PRODUCT MODEL
-const ProductModel = require('../models/productModel');
+const Product = require('../models/productModel');
 
 
 // CONTROLLER FUNCTION TO RENDER THE ADD PRODUCT VIEW PAGE
@@ -14,9 +14,13 @@ exports.postAddProduct = (req , res , next) => {
     const image = req.body.image ;
     const price = req.body.price ;
     const description = req.body.description ;
-    const userId = req.user._id ;
     
-    const product = new ProductModel(title , price ,image , description , userId) ;
+    const product = new Product({
+        title : title ,
+        image : image ,
+        price : price ,
+        description : description
+    }) ;
 
     product.save()
     .then( result => {
@@ -29,67 +33,67 @@ exports.postAddProduct = (req , res , next) => {
 }
 
 
-// CONTROLLER FUNCTION TO GET THE EDIT PRODUCT VIEW PAGE
-exports.getEditProduct = (req , res ,next) => {
-    const productId = req.params.productId;
-    ProductModel.findById(productId)
-    .then( product => {
-        if(!product){
-            return res.redirect('/');
-         }
-         res.render('admin/edit-product' , {docTitle : 'Edit Product' , path: '/admin/edit-product' , product: product}); 
-    })
-    .catch(err =>{
-        console.log(err);
-    });
+// // CONTROLLER FUNCTION TO GET THE EDIT PRODUCT VIEW PAGE
+// exports.getEditProduct = (req , res ,next) => {
+//     const productId = req.params.productId;
+//     ProductModel.findById(productId)
+//     .then( product => {
+//         if(!product){
+//             return res.redirect('/');
+//          }
+//          res.render('admin/edit-product' , {docTitle : 'Edit Product' , path: '/admin/edit-product' , product: product}); 
+//     })
+//     .catch(err =>{
+//         console.log(err);
+//     });
   
-}
+// }
 
 
-// CONTROLLER FUNCTION TO TAKE POST REQUEST FOR EDITTING PRODUCT
- exports.postEditProduct = (req , res , next)=>{
-     const title = req.body.title ;
-     const price = req.body.price ;
-     const image = req.body.image ;
-     const description = req.body.description ;
-     const productId = req.body.productId ;
+// // CONTROLLER FUNCTION TO TAKE POST REQUEST FOR EDITTING PRODUCT
+//  exports.postEditProduct = (req , res , next)=>{
+//      const title = req.body.title ;
+//      const price = req.body.price ;
+//      const image = req.body.image ;
+//      const description = req.body.description ;
+//      const productId = req.body.productId ;
 
-     product = {title : title , price : price , image : image , description : description} ;
+//      product = {title : title , price : price , image : image , description : description} ;
 
-     ProductModel.updateProduct(productId , product)
-     .then(result =>{
-         res.redirect('/shop');
-     })
-     .catch(err => {
-         console.log(err);
-     });
+//      ProductModel.updateProduct(productId , product)
+//      .then(result =>{
+//          res.redirect('/shop');
+//      })
+//      .catch(err => {
+//          console.log(err);
+//      });
 
- }
-
-
-
-  //CONTROLLER FUNCTION TO DELETE PRODUCT
-  exports.deleteProduct = (req , res ,next)=>{
-    const productId = req.params.productId ;
-    ProductModel.deleteById(productId)
-        .then( result => {
-           res.redirect('/admin/products');
-        })
-        .catch(err => {
-            console.log(err);
-        });
-  }
+//  }
 
 
 
-// CONTROLLER FUNCTION TO GET ALL THE PRODUCTS PAGE
- exports.getProducts = (req , res ,next) => {
-    ProductModel.fetchAll()
-       .then( products => {
-        res.render('admin/products' , {docTitle : 'All Products' , path: '/admin/products' , prods : products})
-        })
-        .catch(err => {
-          console.log(err);
-       });
+//   //CONTROLLER FUNCTION TO DELETE PRODUCT
+//   exports.deleteProduct = (req , res ,next)=>{
+//     const productId = req.params.productId ;
+//     ProductModel.deleteById(productId)
+//         .then( result => {
+//            res.redirect('/admin/products');
+//         })
+//         .catch(err => {
+//             console.log(err);
+//         });
+//   }
+
+
+
+// // CONTROLLER FUNCTION TO GET ALL THE PRODUCTS PAGE
+//  exports.getProducts = (req , res ,next) => {
+//     ProductModel.fetchAll()
+//        .then( products => {
+//         res.render('admin/products' , {docTitle : 'All Products' , path: '/admin/products' , prods : products})
+//         })
+//         .catch(err => {
+//           console.log(err);
+//        });
    
-}
+// }

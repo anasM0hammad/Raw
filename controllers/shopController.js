@@ -26,28 +26,19 @@ exports.getProducts = (req , res , next) => {
 //       }
 
 
-// //CONTROLLER FUNCTION TO TAKE CART 
-// exports.postCart = (req , res , next) => {
-//     const productId = req.body.productId;
-//     let price ;
-//     ProductModel.findById(productId)
-//     .then(product => {
-//         price = product.price ;
-
-//         const user = req.user ;
-//         user.addToCart(productId , price)
-//         .then(result => {
-//             res.redirect('/');
-//         })
-//         .catch(err => {
-//             console.log(err);
-//         });
-      
-//     })
-//     .catch();
+//CONTROLLER FUNCTION TO TAKE CART 
+exports.postCart = (req , res , next) => {
+    const productId = req.body.productId;
+    req.user.addToCart(productId)
+    .then(result => {
+        res.redirect('/');
+    })
+    .catch(err => {
+        console.log(err);
+    });
 
    
-// }
+}
 
 
 // //CONTROLLER FUNCTION TO DELETE A PRODUCT FROM CART

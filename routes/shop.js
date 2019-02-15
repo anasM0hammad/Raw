@@ -16,12 +16,13 @@ router.get('/shop', shopController.getProducts);
 // //ROUTE FOR POST CART REQUEST
 // router.post('/cart' , shopController.postCart);
 
+
 // //ROUTE TO DELETE AN ITEM IN CART
 // router.get('/delete-cart/:productId' , shopController.getDeleteProductFromCart);
 
 
-// //ROUTE TO GET PRODUCT DETAILS
-// router.get('/product-details/:productId' , shopController.getProductDetails);
+//ROUTE TO GET PRODUCT DETAILS
+router.get('/product-details/:productId' , shopController.getProductDetails);
 
 // //ROUTE TO GET ORDER PAGE
 // router.get('/order' , shopController.getOrder);

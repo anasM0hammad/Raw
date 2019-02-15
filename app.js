@@ -5,9 +5,9 @@ const mongoose = require('mongoose');
 const path = require('path');
 
  const adminRouter = require('./routes/admin');
-// const shopRouter = require('./routes/shop');
+ const shopRouter = require('./routes/shop');
  const homeRouter = require('./routes/home');
-const notFoundRouter = require('./routes/404');
+ const notFoundRouter = require('./routes/404');
 
 
 //const UserModel = require('./models/userModel') ;
@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 
  app.use(homeRouter);
 
-// app.use(shopRouter);
+ app.use(shopRouter);
 
  app.use('/admin' , adminRouter);
 

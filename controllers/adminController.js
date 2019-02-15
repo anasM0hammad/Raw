@@ -86,14 +86,14 @@ exports.postAddProduct = (req , res , next) => {
 
 
 
-// // CONTROLLER FUNCTION TO GET ALL THE PRODUCTS PAGE
-//  exports.getProducts = (req , res ,next) => {
-//     ProductModel.fetchAll()
-//        .then( products => {
-//         res.render('admin/products' , {docTitle : 'All Products' , path: '/admin/products' , prods : products})
-//         })
-//         .catch(err => {
-//           console.log(err);
-//        });
+// CONTROLLER FUNCTION TO GET ALL THE PRODUCTS PAGE
+ exports.getProducts = (req , res ,next) => {
+    Product.find()
+       .then( products => {
+        res.render('admin/products' , {docTitle : 'All Products' , path: '/admin/products' , prods : products})
+        })
+        .catch(err => {
+          console.log(err);
+       });
    
-// }
+}

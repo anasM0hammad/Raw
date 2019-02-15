@@ -22,7 +22,7 @@ router.post('/add-product' , adminController.postAddProduct);
 // //ROUTE FOR DELETING PRODUCT REQ
 // router.get('/delete-product/:productId' , adminController.deleteProduct)
 
-// //ROUTE TO GET ADMIN PRODUCTS PAGE
-// router.get('/products' , adminController.getProducts);
+//ROUTE TO GET ADMIN PRODUCTS PAGE
+router.get('/products' , adminController.getProducts);
 
 module.exports = router ;

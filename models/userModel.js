@@ -17,6 +17,7 @@
         item : [{
            prodId : {
                type : Schema.Types.ObjectId,
+               ref : 'Product' ,
                required : true
            },
 

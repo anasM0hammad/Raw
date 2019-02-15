@@ -53,6 +53,18 @@
     }
 
 
+        //DELETING CART ITEM
+       UserSchema.methods.deleteItemFromCart = function(prodId){
+            const updatedCartItem = this.cart.item.filter(p => {
+                return p.prodId.toString() !== prodId.toString();
+            });
+            this.cart.item = updatedCartItem ;
+            return this.save() ;
+        }
+
+
+
+
  module.exports =  mongoose.model('User' , UserSchema );
 
 

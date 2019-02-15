@@ -25,7 +25,7 @@
                             <p><small><%= product.prodId.description %></small></p>
                             <p><b>Price : <%= price %> /- </b></p>
                             <p class="float-right"><b>Quantity : <%= product.qty %></b></p>
-                            <a href="/delete-cart/<%= product._id %>"><button class="btn btn-sm btn-outline-danger mybtn-corner">Remove</button></a>
+                            <a href="/delete-cart/<%= product.prodId._id %>"><button class="btn btn-sm btn-outline-danger mybtn-corner">Remove</button></a>
                             <form method="POST" action="/order" style="display : inline ;">
                                 <input type="hidden" class="myForm" name="order">
                                 <button class="btn btn-sm btn-outline-success mybtn-corner">Order All</button>

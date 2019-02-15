@@ -31,14 +31,6 @@ exports.getProducts = (req , res , next) => {
             console.log(err);
         }) ;
 
-        // req.user.getCart()
-        // .then(products => {
-        //     for(product of products){
-        //         total = total + (product.price * product.qty) ;
-        //     }
-        //     res.render('shop/cart' , {docTitle : 'Cart' , path : '/cart' , prods : products , total : total});
-        // })
-        // .catch();
       }
 
 
@@ -57,18 +49,18 @@ exports.postCart = (req , res , next) => {
 }
 
 
-// //CONTROLLER FUNCTION TO DELETE A PRODUCT FROM CART
-// exports.getDeleteProductFromCart = (req , res , next) => {
-//     const productId = req.params.productId ;
-//     req.user.deleteItemFromCart(productId)
-//     .then(result => {
-//         res.redirect('/cart');
-//     })
-//     .catch(err => {
-//         console.log(err);
-//     });
+//CONTROLLER FUNCTION TO DELETE A PRODUCT FROM CART
+exports.getDeleteProductFromCart = (req , res , next) => {
+    const productId = req.params.productId ;
+    req.user.deleteItemFromCart(productId)
+    .then(result => {
+        res.redirect('/cart');
+    })
+    .catch(err => {
+        console.log(err);
+    });
    
-// }
+}
 
 
 //CONTROLLER FUNCTION TO RENDER PRODUCT DETAILS

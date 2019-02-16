@@ -1,6 +1,7 @@
 //PRODUCT MODEL
 const Product = require('../models/productModel');
 const User = require('../models/userModel');
+const Order = require('../models/orderModel') ;
 
 
 //CONTROLLER FUNCTION TO RENDER ALL PRODUCTS ON SHOP PAGE
@@ -86,12 +87,31 @@ exports.getProductDetails = (req , res , next ) =>{
 // }
 
 
-// exports.postOrder = (req , res , next) => {
-//     req.user.addOrder()
-//     .then(result => {
-//         res.redirect('/order');
-//     })
-//     .catch(err => {
-//         console.log(err);
-//     })
-// }
+exports.postOrder = (req , res , next) => {
+    let products ;
+    req.user.populate('cart.item.prodId').execPopulate()
+    .then(user => {
+        products = user.cart.item.map(i => {
+            return {qty : i.qty , product : {...i.prodId._doc } }  ;
+        });
+         const order = new Order({
+            products : products,
+            user : {
+                userId : req.user,
+                name : req.user.name
+            }
+        });
+
+        return order.save() ;
+    })
+    .then(result => {
+        req.user.cart.item  = [];
+        return req.user.save();
+    })
+    .then(result => {
+        res.redirect('/order');
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}

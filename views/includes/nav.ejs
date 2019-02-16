@@ -13,14 +13,20 @@
                 <li class="nav-item  <%= path=='/cart' ? 'active' : '' %> ">
                   <a class="nav-link" href="/cart">Cart</a>
                 </li>
-                <li class="nav-item  <%= path=='/admin/products' ? 'active' : '' %> ">
+                <!-- <li class="nav-item  <%= path=='/admin/products' ? 'active' : '' %> ">
                   <a class="nav-link" href="/admin/products">Admin Product</a>
                 </li>
                 <li class="nav-item  <%= path=='/admin/add-product' ? 'active' : '' %>">
                   <a class="nav-link" href="/admin/add-product">Add Product</a>
-                </li>
+                </li> -->
                 <li class="nav-item  <%= path=='/order' ? 'active' : '' %>">
                   <a class="nav-link" href="/order">Orders</a>
+                </li>
+              </ul>
+              
+              <ul class="navbar-nav justify-end-content">
+                <li class="nav-link <%= path =='/login' ? 'active' : '' %>">
+                  <a href="/login">Login</a>
                 </li>
               </ul>
             </div>

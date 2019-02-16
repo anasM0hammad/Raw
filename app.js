@@ -7,6 +7,7 @@ const path = require('path');
  const adminRouter = require('./routes/admin');
  const shopRouter = require('./routes/shop');
  const homeRouter = require('./routes/home');
+ const authRouter = require('./routes/auth');
  const notFoundRouter = require('./routes/404');
 
 
@@ -31,12 +32,10 @@ app.use((req , res , next ) => {
 });
 
  app.use(homeRouter);
-
  app.use(shopRouter);
-
+ app.use(authRouter);
  app.use('/admin' , adminRouter);
-
-app.use(notFoundRouter);
+ app.use(notFoundRouter);
 
 mongoose.connect('mongodb+srv://anasM0hammad:dWqmd6zjdCD1mV4D@raw-bawen.mongodb.net/raw?retryWrites=true')
 .then(result => {

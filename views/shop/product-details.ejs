@@ -8,7 +8,7 @@
      <div class="row">
          <div class="col-sm-3"></div>
          <div class="col-sm-6">
-             <div class="card">
+             <div class="card shadow bg-white w-3">
                  <div class="card-body">
                    <img src="<%= product.image %>" class="card-img-top mx-auto d-block" style="max-height: 200px; max-width: 60%;">
                    <h4 class="text-center"><%= product.title %></h4>
@@ -17,10 +17,9 @@
                    <p><small><%= product.description %></small></p>
                    <br>
                    <form action="/cart" method="POST" class="myForm">
-                    <input type="hidden" name="productId" value="<%= product.productId %>">
+                    <input type="hidden" name="productId" value="<%= product._id %>">
                     <button class="btn btn-outline-primary btn-block mybtn-corner" type="submit">Add to Cart</button>
                   </form>
-                   <a href=""><button class="btn btn-outline-success btn-block mybtn-corner ">Order Now</button></a>  
                  </div>
              </div>
          </div>

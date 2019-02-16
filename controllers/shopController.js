@@ -75,24 +75,27 @@ exports.getProductDetails = (req , res , next ) =>{
 
 
 
-// //CONTROLLER FUNCTION TO GET ORDER PAGE
-// exports.getOrder = (req , res , next ) => {
-//     req.user.fetchOrders()
-//     .then(orders => {
-//         res.render('shop/order' , {docTitle : 'Orders' , path : '/order' , orders : orders}) ;
-//     })
-//    .catch(err => {
-//        console.log(err);
-//    })
-// }
+//CONTROLLER FUNCTION TO GET ORDER PAGE
+exports.getOrder = (req , res , next ) => {
+    req.user.fetchOrders()
+    .then(orders => {
+        res.render('shop/order' , {docTitle : 'Orders' , path : '/order' , orders : orders}) ;
+    })
+   .catch(err => {
+       console.log(err);
+   })
+}
 
 
 exports.postOrder = (req , res , next) => {
+    const d = new Date();
     let products ;
+    const date = d.getDay() + "/" + d.getMonth() + "/" + d.getFullYear() ;
+    const time = d.getHours() + ":" + d.getMinutes()  ;
     req.user.populate('cart.item.prodId').execPopulate()
     .then(user => {
         products = user.cart.item.map(i => {
-            return {qty : i.qty , product : {...i.prodId._doc } }  ;
+            return {qty : i.qty , product : {...i.prodId._doc } , time : time , date : date }  ;
         });
          const order = new Order({
             products : products,

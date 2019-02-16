@@ -23,8 +23,8 @@ router.get('/delete-cart/:productId' , shopController.getDeleteProductFromCart);
 //ROUTE TO GET PRODUCT DETAILS
 router.get('/product-details/:productId' , shopController.getProductDetails);
 
-// //ROUTE TO GET ORDER PAGE
-// router.get('/order' , shopController.getOrder);
+//ROUTE TO GET ORDER PAGE
+router.get('/order' , shopController.getOrder);
 
 //ROUTE TO ADD CART TO ORDER
 router.post('/order' , shopController.postOrder) ;

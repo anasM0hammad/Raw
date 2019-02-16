@@ -1,4 +1,6 @@
- 
+ const Order = require('./orderModel');
+
+
  const mongoose = require('mongoose');
  const Schema = mongoose.Schema ;
 
@@ -53,7 +55,7 @@
     }
 
 
-        //DELETING CART ITEM
+     //DELETING CART ITEM
        UserSchema.methods.deleteItemFromCart = function(prodId){
             const updatedCartItem = this.cart.item.filter(p => {
                 return p.prodId.toString() !== prodId.toString();
@@ -61,6 +63,20 @@
             this.cart.item = updatedCartItem ;
             return this.save() ;
         }
+
+
+     //GETTING USERS ORDER
+     UserSchema.methods.fetchOrders = function(){
+         let orders ;
+         return Order.find()
+         .then(allOrders => {
+            orders = allOrders.filter(i => i.user.userId.toString() === this._id.toString()) ;
+            return orders ;
+         })
+         .catch(err => {
+             console.log(err);
+         })
+     }
 
 
 

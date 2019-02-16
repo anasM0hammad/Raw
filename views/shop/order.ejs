@@ -16,8 +16,8 @@
                             <span>Time : <%=order.time %></span>
                             <span class="float-right"><%= order.date %></span>
                              <ul class="list-group">
-                                <% for (item of order.item) { %>
-                                <li class="list-group-item"><%= item.title %> <span class="float-right">Quantity : <%=item.qty%></span></li>
+                                <% for (product of order.products) { %>
+                                <li class="list-group-item"><%= product.data.title %> <span class="float-right">Quantity : <%=product.qty%></span></li>
                                 <% } %>
                              </ul>
                         </div>

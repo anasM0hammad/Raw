@@ -26,10 +26,6 @@
                             <p><b>Price : <%= price %> /- </b></p>
                             <p class="float-right"><b>Quantity : <%= product.qty %></b></p>
                             <a href="/delete-cart/<%= product.prodId._id %>"><button class="btn btn-sm btn-outline-danger mybtn-corner">Remove</button></a>
-                            <form method="POST" action="/order" style="display : inline ;">
-                                <input type="hidden" class="myForm" name="order">
-                                <button class="btn btn-sm btn-outline-success mybtn-corner">Order All</button>
-                            </form>
                          </div>
                      </div>
                  </div>
@@ -61,6 +57,10 @@
                         <% } %>
                     </div>
                 </div>
+                <form method="POST" action="/order">
+                    <input type="hidden" name="order">
+                    <button class="btn btn-block shadow btn-success mybtn-corner">Order All</button>
+                </form>
           </div>
       </div>
    </div>

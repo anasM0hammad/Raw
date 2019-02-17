@@ -6,10 +6,10 @@ const Order = require('../models/orderModel') ;
 
 //CONTROLLER FUNCTION TO RENDER ALL PRODUCTS ON SHOP PAGE
 exports.getProducts = (req , res , next) => {
-    const isAuth = req.session.isLoggedIn == true ? true : false ;
+    
     Product.find()
         .then( products => {
-           res.render('shop/product-list' , {docTitle : 'Shop' , path: '/shop' , prods : products , isAuth : isAuth})
+           res.render('shop/product-list' , {docTitle : 'Shop' , path: '/shop' , prods : products })
         }).catch(err => {
             console.log(err);
        });
@@ -19,7 +19,7 @@ exports.getProducts = (req , res , next) => {
 
     //CONTROLLER FUNCTION TO RENDER CART 
       exports.getCart = (req , res , next) => {
-        const isAuth = req.session.isLoggedIn == true ? true : false ;
+        
         let total = 0 ;
         let products = [];
         req.user.populate('cart.item.prodId').execPopulate()
@@ -28,7 +28,7 @@ exports.getProducts = (req , res , next) => {
             for(product of products){
                 total = total + (product.prodId.price * product.qty) ;
             }
-            res.render('shop/cart' , {docTitle : 'Cart' , path : '/cart' , prods : products , total : total , isAuth : isAuth});
+            res.render('shop/cart' , {docTitle : 'Cart' , path : '/cart' , prods : products , total : total });
         })
         .catch(err => {
             console.log(err);
@@ -68,10 +68,10 @@ exports.getDeleteProductFromCart = (req , res , next) => {
 
 //CONTROLLER FUNCTION TO RENDER PRODUCT DETAILS
 exports.getProductDetails = (req , res , next ) =>{
-    const isAuth = req.session.isLoggedIn == true ? true : false ;
+    
     const productId = req.params.productId ;
     Product.findById(productId).then(product =>{
-        res.render('shop/product-details' , {docTitle: 'Product Details' , path: '/product-details' , product: product , isAuth : isAuth});
+        res.render('shop/product-details' , {docTitle: 'Product Details' , path: '/product-details' , product: product });
     }).catch();       
    
 }
@@ -80,11 +80,11 @@ exports.getProductDetails = (req , res , next ) =>{
 
 //CONTROLLER FUNCTION TO GET ORDER PAGE
 exports.getOrder = (req , res , next ) => {
-    const isAuth = req.session.isLoggedIn == true ? true : false ;
+    
     req.user.fetchOrders()
     .then(orders => {
         console.log(req.user);
-        res.render('shop/order' , {docTitle : 'Orders' , path : '/order' , orders : orders , isAuth : isAuth}) ;
+        res.render('shop/order' , {docTitle : 'Orders' , path : '/order' , orders : orders }) ;
     })
    .catch(err => {
        console.log(err);

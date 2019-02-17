@@ -4,8 +4,8 @@ const bcrypt = require('bcryptjs');
 
 //CONTROLLER FUNCTION TO RENDER LOGIN PAGE
 exports.getLogin = (req , res ,next ) => {
-    const isAuth = req.session.isLoggedIn == true ? true : false ;
-    res.render('auth/login' , {docTitle : 'Login' , path : '/login' , isAuth : isAuth}) ;
+  
+    res.render('auth/login' , {docTitle : 'Login' , path : '/login' }) ;
 }
 
 //CONTROLLER FUNCTION TO LOGIN
@@ -46,8 +46,8 @@ exports.postLogin = (req , res , next) => {
 
 //CONTROLLER FUNCTION TO GET SIGNUP PAGE
 exports.getSignup = (req , res , next ) => {
-    const isAuth = req.session.isLoggedIn == true ? true : false ;
-    res.render('auth/signup' , {docTitle : 'Signup' , path : '/signup' , isAuth : isAuth});
+    
+    res.render('auth/signup' , {docTitle : 'Signup' , path : '/signup'});
 }
 
 

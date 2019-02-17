@@ -4,7 +4,8 @@ const bcrypt = require('bcryptjs');
 
 //CONTROLLER FUNCTION TO RENDER LOGIN PAGE
 exports.getLogin = (req , res ,next ) => {
-    res.render('auth/login' , {docTitle : 'Login' , path : '/login'}) ;
+    const isAuth = req.session.isLoggedIn == true ? true : false ;
+    res.render('auth/login' , {docTitle : 'Login' , path : '/login' , isAuth : isAuth}) ;
 }
 
 //CONTROLLER FUNCTION TO LOGIN
@@ -25,7 +26,7 @@ exports.postLogin = (req , res , next) => {
                 req.session.user = user ;
                 req.session.isLoggedIn = true ;
                 return req.session.save(err => {
-                    res.redirect('/login');
+                    res.redirect('/shop');
                     console.log(err);
                 });
             }
@@ -45,7 +46,8 @@ exports.postLogin = (req , res , next) => {
 
 //CONTROLLER FUNCTION TO GET SIGNUP PAGE
 exports.getSignup = (req , res , next ) => {
-    res.render('auth/signup' , {docTitle : 'Signup' , path : '/signup'});
+    const isAuth = req.session.isLoggedIn == true ? true : false ;
+    res.render('auth/signup' , {docTitle : 'Signup' , path : '/signup' , isAuth : isAuth});
 }
 
 
@@ -81,4 +83,14 @@ exports.postSignup = (req , res , next) => {
    .catch(err => {
        console.log(err);
    });
+}
+
+
+
+//CONTROLLER FUNCTION TO LOGOUT
+exports.getLogout = (req , res , next )=>{
+    req.session.destroy(err => {
+        console.log(err);
+        res.redirect('/shop');
+    }) ;
 }

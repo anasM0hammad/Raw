@@ -5,7 +5,8 @@ const Product = require('../models/productModel');
 
 // CONTROLLER FUNCTION TO RENDER THE ADD PRODUCT VIEW PAGE
 exports.getAddProduct = (req , res ,next) => {
-    res.render('admin/add-product' , {docTitle : 'Add Product' , path: '/admin/add-product'});
+    const isAuth = req.session.isLoggedIn == true ? true : false ;
+    res.render('admin/add-product' , {docTitle : 'Add Product' , path: '/admin/add-product' , isAuth : isAuth});
 }
 
 //CONTROLLER FUNCTION TO TAKE THE ADD PRODUCT POST REQUEST
@@ -36,13 +37,14 @@ exports.postAddProduct = (req , res , next) => {
 
 // CONTROLLER FUNCTION TO GET THE EDIT PRODUCT VIEW PAGE
 exports.getEditProduct = (req , res ,next) => {
+    const isAuth = req.session.isLoggedIn == true ? true : false ;
     const productId = req.params.productId;
     Product.findById(productId)
     .then( product => {
         if(!product){
             return res.redirect('/');
          }
-         res.render('admin/edit-product' , {docTitle : 'Edit Product' , path: '/admin/edit-product' , product: product}); 
+         res.render('admin/edit-product' , {docTitle : 'Edit Product' , path: '/admin/edit-product' , product: product , isAuth :isAuth }); 
     })
     .catch(err =>{
         console.log(err);
@@ -95,9 +97,10 @@ exports.getEditProduct = (req , res ,next) => {
 
 // CONTROLLER FUNCTION TO GET ALL THE PRODUCTS PAGE
  exports.getProducts = (req , res ,next) => {
+    const isAuth = req.session.isLoggedIn == true ? true : false ;
     Product.find()
        .then( products => {
-        res.render('admin/products' , {docTitle : 'All Products' , path: '/admin/products' , prods : products})
+        res.render('admin/products' , {docTitle : 'All Products' , path: '/admin/products' , prods : products , isAuth : isAuth})
         })
         .catch(err => {
           console.log(err);

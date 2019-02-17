@@ -79,6 +79,7 @@ exports.getProductDetails = (req , res , next ) =>{
 exports.getOrder = (req , res , next ) => {
     req.user.fetchOrders()
     .then(orders => {
+        console.log(req.user);
         res.render('shop/order' , {docTitle : 'Orders' , path : '/order' , orders : orders}) ;
     })
    .catch(err => {

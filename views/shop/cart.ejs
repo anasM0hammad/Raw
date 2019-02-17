@@ -57,10 +57,12 @@
                         <% } %>
                     </div>
                 </div>
+                <% if(prods.length > 0){ %>
                 <form method="POST" action="/order">
                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <button class="btn btn-block shadow btn-success mybtn-corner">Order All</button>
                 </form>
+                <% } %>
           </div>
       </div>
    </div>

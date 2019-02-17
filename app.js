@@ -42,7 +42,7 @@ app.use(csrfProtection);
 
 
 app.use((req , res ,next) => {
-  if(req.session.isAuthenticated){
+  if(req.session.isLoggedIn){
     User.findById(req.session.user._id)
     .then(user => {
       req.user = user ;
@@ -51,8 +51,9 @@ app.use((req , res ,next) => {
     .catch(err => {
       console.log(err);
     });
+  }else{
+    next();
   }
-  next();
 });
 
 app.use((req , res , next) => {

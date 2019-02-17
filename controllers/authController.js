@@ -21,3 +21,9 @@ exports.postLogin = (req , res , next) => {
         console.log(err);
     })
 }
+
+
+//CONTROLLER FUNCTION TO GET SIGNUP PAGE
+exports.getSignup = (req , res , next ) => {
+    res.render('auth/signup' , {docTitle : 'Signup' , path : '/signup'});
+}

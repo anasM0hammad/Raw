@@ -47,6 +47,7 @@ app.use((req , res ,next) => {
       console.log(err);
     });
   }
+  next();
 });
 
 
@@ -58,7 +59,7 @@ app.use((req , res ,next) => {
  app.use(notFoundRouter);
 
 
-mongoose.connect('mongodb+srv://anasM0hammad:dWqmd6zjdCD1mV4D@raw-bawen.mongodb.net/raw?retryWrites=true')
+mongoose.connect('mongodb+srv://anasM0hammad:dWqmd6zjdCD1mV4D@raw-bawen.mongodb.net/raw')
 .then(result => {
     app.listen(3000);
 })

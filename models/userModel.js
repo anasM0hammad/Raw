@@ -5,29 +5,18 @@
  const Schema = mongoose.Schema ;
 
  const UserSchema = new Schema({
-    name : {
-        type : String ,
-        required : true
-    },
+    name : { type : String , required : true},
 
-    email : {
-        type : String ,
-        required : true 
-    },
+    email : {type : String , required : true },
+
+    password : {type : String , required : true },
 
     cart : {
         item : [{
-           prodId : {
-               type : Schema.Types.ObjectId,
-               ref : 'Product' ,
-               required : true
-           },
-
-           qty : {
-               type : Number ,
-               required : true
-           }
-        }]
+                prodId : {   type : Schema.Types.ObjectId , ref : 'Product' ,  required : true },
+                
+                qty : { type : Number , required : true}
+             }]
     }
 
  });

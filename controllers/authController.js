@@ -4,7 +4,13 @@ const bcrypt = require('bcryptjs');
 
 //CONTROLLER FUNCTION TO RENDER LOGIN PAGE
 exports.getLogin = (req , res ,next ) => {
-    const errorMsg = req.flash('error');
+    let errorMsgArray = req.flash('error');
+    if(errorMsgArray.length > 0){
+        errorMsg = errorMsgArray[0] ;
+    }
+    else{
+        errorMsg = null ;
+    }
     res.render('auth/login' , {docTitle : 'Login' , path : '/login' , errorMsg : errorMsg }) ;
 }
 
@@ -47,8 +53,13 @@ exports.postLogin = (req , res , next) => {
 
 //CONTROLLER FUNCTION TO GET SIGNUP PAGE
 exports.getSignup = (req , res , next ) => {
-    const errorMsg = req.flash('error');
-    const success = req.flash('success');
+    const errorMsgArray = req.flash('error');
+    const successArray = req.flash('success');
+    let errorMsg ;
+    let success ;
+
+    errorMsgArray.length > 0 ? errorMsg = errorMsgArray[0] : errorMsg = null ;
+    successArray.length > 0 ? success = successArray[0] : success = null ;
     res.render('auth/signup' , {docTitle : 'Signup' , path : '/signup' , errorMsg : errorMsg , success : success});
 }
 

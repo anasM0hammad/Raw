@@ -63,15 +63,20 @@ exports.getEditProduct = (req , res ,next) => {
 
      Product.findById(productId)
      .then(product => {
+
+        if(product.userId !== req.user._id){
+           return res.redirect('/');
+        }
+
          product.title = title ;
          product.price = price ;
          product.image = image ;
          product.description = description ;
 
-         return product.save();
-     })
-     .then(result =>{
-         res.redirect('/shop');
+         return product.save()
+         .then(result =>{
+            res.redirect('/shop');
+        })
      })
      .catch(err => {
          console.log(err);
@@ -84,7 +89,7 @@ exports.getEditProduct = (req , res ,next) => {
   //CONTROLLER FUNCTION TO DELETE PRODUCT
   exports.deleteProduct = (req , res ,next)=>{
     const productId = req.params.productId ;
-    Product.findByIdAndRemove(productId)
+    Product.deleteOne({_id: productId , userId : req.user._id})
         .then( result => {
            res.redirect('/admin/products');
         })

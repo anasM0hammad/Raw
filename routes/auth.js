@@ -24,7 +24,10 @@ router.get('/reset' , authController.getReset) ;
 //ROUTE TO POST RESET PAGE
 router.post('/reset' , authController.postReset) ;
 
-//ROUTE FOR POST RESET PAGE
+//ROUTE FOR GET LINK FROM MAIL TO NEW PASSWORD PAGE
 router.get('/reset/:token' , authController.getNewPassword) ;
+
+//ROUTE TO POST NEW PASSWORD
+router.post('/newPassword' , authController.postNewPassword) ;
 
 module.exports = router ;

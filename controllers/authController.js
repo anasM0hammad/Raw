@@ -202,3 +202,30 @@ exports.getNewPassword = (req , res , next) => {
 }
 
 
+
+//CONTROLLER TO POST NEW PASSWORD IN DB
+exports.postNewPassword = (req , res , next) => {
+    const userId = req.body.userId ;
+    const token = req.body.token ;
+    const newPassword = req.body.password ;
+    let newHashed ;
+
+    bcrypt.hash(newPassword , 12)
+    .then(hashedPassword => {
+        newHashed = hashedPassword ;
+        return User.findOne({_id : userId , resetToken: token , resetTokenExpiration : {$gt : Date.now()}})
+    })
+    .then(user => {
+        user.password = newHashed ; 
+        user.resetToken = undefined; 
+        user.resetTokenExpiration = undefined ;
+        return user.save();
+    })
+    .then(result => {
+        res.redirect('/login') ;
+    })
+    .catch(err => {
+        console.log(err) ;
+    })
+
+}

@@ -183,3 +183,22 @@ exports.postReset = (req , res , next) => {
         })
     });
 }
+
+
+//CONTROLLER TO GET THE LINK FROM MAIL
+exports.getNewPassword = (req , res , next) => {
+    const token = req.params.token ;
+    let user ;
+    User.findOne({resetToken : token , resetTokenExpiration : {$gt : Date.now()}})
+    .then(user => {
+        if(!user){
+            return res.redirect('/');
+        }
+        res.render('auth/new-password' , {docTitle : 'New Password' , path : '/reset' , token : token , id : user._id.toString()}) ;
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
+
+

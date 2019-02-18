@@ -1,6 +1,14 @@
 const User = require('../models/userModel');
 
 const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer');
+const sendGrid = require('nodemailer-sendgrid-transport') ;
+
+const transporter = nodemailer.createTransport(sendGrid({
+    auth : {
+        api_key : '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' 
+    }
+}));
 
 //CONTROLLER FUNCTION TO RENDER LOGIN PAGE
 exports.getLogin = (req , res ,next ) => {
@@ -38,6 +46,7 @@ exports.postLogin = (req , res , next) => {
                 });
             }
             else{
+                req.flash('error' , 'Invalid Password');
                 res.redirect('/');
             }
         })
@@ -93,6 +102,20 @@ exports.postSignup = (req , res , next) => {
        .then(result => {
            req.flash('success' , 'Signup Successfull');
            res.redirect('/login');
+           
+           transporter.sendMail({
+               to: email ,
+               from : 'support@raw12.in',
+               subject : 'Welcome to Online Shopping Registering Store',
+               html: '<h2>Welcome to Online Shopping Store</h2> <p>You are Signup Successfully Now you can post your products as well as buy from our website</p>'
+           })
+           .then(result =>{
+           
+           })
+           .catch(err => {
+               console.log(err);
+           });
+
        });
    })
    .catch(err => {

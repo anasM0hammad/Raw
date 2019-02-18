@@ -4,8 +4,8 @@ const bcrypt = require('bcryptjs');
 
 //CONTROLLER FUNCTION TO RENDER LOGIN PAGE
 exports.getLogin = (req , res ,next ) => {
-  
-    res.render('auth/login' , {docTitle : 'Login' , path : '/login' }) ;
+    const errorMsg = req.flash('error');
+    res.render('auth/login' , {docTitle : 'Login' , path : '/login' , errorMsg : errorMsg }) ;
 }
 
 //CONTROLLER FUNCTION TO LOGIN
@@ -17,6 +17,7 @@ exports.postLogin = (req , res , next) => {
     .then(user => {
         
         if(!user){
+            req.flash('error' , 'Invalid Email');
             return res.redirect('/login');
         }
         
@@ -46,8 +47,9 @@ exports.postLogin = (req , res , next) => {
 
 //CONTROLLER FUNCTION TO GET SIGNUP PAGE
 exports.getSignup = (req , res , next ) => {
-    
-    res.render('auth/signup' , {docTitle : 'Signup' , path : '/signup'});
+    const errorMsg = req.flash('error');
+    const success = req.flash('success');
+    res.render('auth/signup' , {docTitle : 'Signup' , path : '/signup' , errorMsg : errorMsg , success : success});
 }
 
 
@@ -61,7 +63,8 @@ exports.postSignup = (req , res , next) => {
    User.findOne({email : email})
    .then(user => {
        if(user){
-        return res.redirect('/');
+        req.flash('error' , 'User Already Exist');
+        return res.redirect('/signup');
        }
 
        bcrypt.hash(password , 12)
@@ -77,6 +80,7 @@ exports.postSignup = (req , res , next) => {
 
        })
        .then(result => {
+           req.flash('success' , 'Signup Successfull');
            res.redirect('/login');
        });
    })

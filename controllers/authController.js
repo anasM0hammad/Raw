@@ -132,3 +132,10 @@ exports.getLogout = (req , res , next )=>{
         res.redirect('/shop');
     }) ;
 }
+
+
+
+//CONTROLLER TO GET RESET PAGE
+exports.getReset = (req , res , next) => {
+    res.render('auth/reset' , {docTitle :  'Reset Password' , path : '/reset'}) ;
+}

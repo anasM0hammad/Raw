@@ -12,25 +12,20 @@
 	<% } %>
 
 	<div class="container">
-		<h1 class="text-center">Login</h1>
+		<h1 class="text-center">Reset Your Password</h1>
     <br>
 		<div class="row">
 			<div class="col-sm-3"></div>
 				<div class="col-sm-6">
-					<div class="card shadow">
+					<div class="card shadow mb-5">
 						<div class="card-body">
-							<form action="/login" method="POST">
+							<form action="/reset" method="POST">
 								<div class="form-group">
 									<label><b>Email</b></label>
 									<input type="email" class="form-control" name="email">
 								</div>
-								<div class="form-group">
-									<label><b>Password</b></label>
-									<input type="password" class="form-control" name="password" >
-									<a href="/reset" style="color:blue;">Reset Password</a>
-								</div>
 								<input type="hidden" name="_csrf" value="<%= csrfToken %>">
-								<button class="btn btn-primary btn-block mybtn-corner" type="submit">Login</button>
+								<button class="btn btn-primary btn-block mybtn-corner" type="submit">Reset Password</button>
 							</form>
 						</div>
 					</div>
@@ -40,7 +35,7 @@
 	</div>
 
     
-
+<br><br><br>
 
 <!-- FOOTER -->
 <%- include('../includes/footer.ejs') %>

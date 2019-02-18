@@ -129,7 +129,6 @@ exports.postSignup = (req , res , next) => {
 //CONTROLLER FUNCTION TO LOGOUT
 exports.getLogout = (req , res , next )=>{
     req.session.destroy(err => {
-        console.log(err);
         res.redirect('/shop');
     }) ;
 }

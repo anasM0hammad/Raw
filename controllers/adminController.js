@@ -98,7 +98,7 @@ exports.getEditProduct = (req , res ,next) => {
 // CONTROLLER FUNCTION TO GET ALL THE PRODUCTS PAGE
  exports.getProducts = (req , res ,next) => {
     const isAuth = req.session.isLoggedIn == true ? true : false ;
-    Product.find()
+    Product.find({userId : req.user._id})
        .then( products => {
         res.render('admin/products' , {docTitle : 'All Products' , path: '/admin/products' , prods : products , isAuth : isAuth})
         })

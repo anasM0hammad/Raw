@@ -21,4 +21,10 @@ router.get('/logout' , authController.getLogout) ;
 //ROUTE TO GET RESET PAGE
 router.get('/reset' , authController.getReset) ;
 
+//ROUTE TO POST RESET PAGE
+router.post('/reset' , authController.postReset) ;
+
+//ROUTE FOR POST RESET PAGE
+//router.get('/reset/:token' , authController.postReset) ;
+
 module.exports = router ;

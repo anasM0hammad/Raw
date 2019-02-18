@@ -3,6 +3,7 @@ const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const sendGrid = require('nodemailer-sendgrid-transport') ;
+const crypto = require('crypto');
 
 const transporter = nodemailer.createTransport(sendGrid({
     auth : {
@@ -137,5 +138,48 @@ exports.getLogout = (req , res , next )=>{
 
 //CONTROLLER TO GET RESET PAGE
 exports.getReset = (req , res , next) => {
-    res.render('auth/reset' , {docTitle :  'Reset Password' , path : '/reset'}) ;
+    const errorMsgArray = req.flash('error');
+    if(errorMsgArray.length > 0){
+        errorMsg = errorMsgArray[0];
+    }
+    else{
+        errorMsg = null; 
+    }
+    res.render('auth/reset' , {docTitle :  'Reset Password' , path : '/reset' , errorMsg : errorMsg}) ;
+}
+
+
+//CONTROLLER TO POST RESET PAGE
+exports.postReset = (req , res , next) => {
+    const email = req.body.email ;
+    let resetUser ;
+    crypto.randomBytes(32 , (err , buffer) => {
+        if(err){
+            return res.redirect('/reset');
+        }
+        const token = buffer.toString('hex') ;
+        User.findOne({email : email})
+        .then(user => {
+            resetUser = user ;
+            resetUser.resetToken = token ;
+            resetUser.resetTokenExpiration = Date.now() + 3600000 ;
+            return resetUser.save();
+        })
+        .then(result => {
+            res.redirect('/reset');
+            return transporter.sendMail({
+                to : req.body.email,
+                from : 'support@raw12.in',
+                subject : 'Resetting Password',
+                html : `<h2>Reset Your Password</h2>
+                        <p>We are here to help you click <a href="http://localhost:3000/reset/${token}">here</a> to reset your password Successfully. If resetting password is not requested by you just ignore this mail.</p>`
+            })
+        })
+        .then(result => {
+
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    });
 }

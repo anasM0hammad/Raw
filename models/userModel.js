@@ -11,6 +11,9 @@
 
     password : {type : String , required : true },
 
+    resetToken : {type : String },
+    resetTokenExpiration : {type : Date},
+
     cart : {
         item : [{
                 prodId : {   type : Schema.Types.ObjectId , ref : 'Product' ,  required : true },

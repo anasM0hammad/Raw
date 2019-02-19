@@ -4,6 +4,13 @@
 <!-- NAVBAR -->
 <%- include('../includes/nav.ejs'); %>
 
+<!-- ERROR -->
+<% if(errorMsg){ %>
+<div class="container">
+    <div class="alert alert-danger mx-auto d-block" style="width : 50%"><b><%= errorMsg %></b></div>
+</div>
+<% } %>
+
 <div class="container">
     <h1 class="text-center">Signup</h1><br>
   <div class="row">
@@ -11,7 +18,7 @@
       <div class="col-sm-6">
           <div class="card">
               <div class="card-body">
-                <form action="/signup" method="POST">
+                <form action="/signup" method="POST" novalidate>
                     <div class="form-group">
                         <label><b>Enter Name</b></label>
                         <input type="text" name="name" class="form-control">

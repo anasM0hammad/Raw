@@ -16,7 +16,14 @@ router.get('/signup' , authController.getSignup) ;
 //ROUTE FOR POST SIGNUP
 router.post('/signup' ,
  check('email').isEmail() ,
- body('password' , 'Enter atleast 6 charechter long Password without Special Charecters').isLength({min:6}).isAlphanumeric() ,
+ body('password' , 'Enter atleast 6 charechter long Password without Special Charecters').isLength({min:6}).isAlphanumeric(),
+ body('confirmPassword').custom((value , {req}) => {
+    if(value !== req.body.password){
+        throw new Error('Password Have to be Matched') ;
+    }
+
+    return true ;
+ }),
  authController.postSignup) ;
 
 //ROUTE FOR LOGOUT 

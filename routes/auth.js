@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {check} = require('express-validator/check');
+const {check , body} = require('express-validator/check');
 
 const authController = require('../controllers/authController.js');
 
@@ -14,7 +14,10 @@ router.post('/login' , authController.postLogin);
 router.get('/signup' , authController.getSignup) ;
 
 //ROUTE FOR POST SIGNUP
-router.post('/signup' , check('email').isEmail() ,authController.postSignup) ;
+router.post('/signup' ,
+ check('email').isEmail() ,
+ body('password' , 'Enter atleast 6 charechter long Password without Special Charecters').isLength({min:6}).isAlphanumeric() ,
+ authController.postSignup) ;
 
 //ROUTE FOR LOGOUT 
 router.get('/logout' , authController.getLogout) ;

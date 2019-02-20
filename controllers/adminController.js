@@ -1,12 +1,13 @@
 
 //PRODUCT MODEL
 const Product = require('../models/productModel');
+const { validationResult } = require('express-validator/check');
 
 
 // CONTROLLER FUNCTION TO RENDER THE ADD PRODUCT VIEW PAGE
 exports.getAddProduct = (req , res ,next) => {
     const isAuth = req.session.isLoggedIn == true ? true : false ;
-    res.render('admin/add-product' , {docTitle : 'Add Product' , path: '/admin/add-product' , isAuth : isAuth});
+    res.render('admin/add-product' , {docTitle : 'Add Product' , path: '/admin/add-product' , isAuth : isAuth , errorMsg : ''});
 }
 
 //CONTROLLER FUNCTION TO TAKE THE ADD PRODUCT POST REQUEST
@@ -15,6 +16,12 @@ exports.postAddProduct = (req , res , next) => {
     const image = req.body.image ;
     const price = req.body.price ;
     const description = req.body.description ;
+    const errorMsg = validationResult(req);
+    const isAuth = req.session.isLoggedIn == true ? true : false ;
+
+    if(!errorMsg.isEmpty()){
+       return res.status(422).render('admin/add-product' , {docTitle : 'Add Product' , path: '/admin/add-product' , isAuth : isAuth , errorMsg : errorMsg.array()[0].msg})
+    }
     
     const product = new Product({
         title : title ,
@@ -60,6 +67,12 @@ exports.getEditProduct = (req , res ,next) => {
      const image = req.body.image ;
      const description = req.body.description ;
      const productId = req.body.productId ;
+     const errorMsg = validationResult(req);
+     const isAuth = req.session.isLoggedIn == true ? true : false ;
+ 
+     if(!errorMsg.isEmpty()){
+        return res.status(422).render('admin/edit-product' , {docTitle : 'Edit Product' , path: '/admin/edit-product' , isAuth : isAuth , errorMsg : errorMsg.array()[0].msg})
+     }
 
      Product.findById(productId)
      .then(product => {

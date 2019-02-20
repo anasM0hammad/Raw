@@ -2,6 +2,7 @@ const path = require('path');
 
 const express = require('express');
 
+
 const rootDir = require('../util/path');
 const shopController = require('../controllers/shopController');
 const isAuth = require('../middleware/is-auth');
@@ -19,7 +20,6 @@ router.post('/cart' , isAuth , shopController.postCart);
 
 //ROUTE TO DELETE AN ITEM IN CART
 router.get('/delete-cart/:productId' ,isAuth , shopController.getDeleteProductFromCart);
-
 
 //ROUTE TO GET PRODUCT DETAILS
 router.get('/product-details/:productId' , shopController.getProductDetails);

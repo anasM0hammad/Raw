@@ -28,6 +28,11 @@ exports.getLogin = (req , res ,next ) => {
 exports.postLogin = (req , res , next) => {
     const email = req.body.email ;
     const password = req.body.password ;
+    const errorMsg = validationResult(req);
+
+    if(!errorMsg.isEmpty()){
+       return res.status(422).render('auth/login' , {docTitle : 'Login' , path : '/login' , errorMsg : errorMsg.array()[0].msg })
+    }
 
     User.findOne({email : email})
     .then(user => {

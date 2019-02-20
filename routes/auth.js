@@ -8,16 +8,19 @@ const authController = require('../controllers/authController.js');
 router.get('/login' , authController.getLogin);
 
 //ROUTE FOR POST LOGIN REQUEST
-router.post('/login' , authController.postLogin);
+router.post('/login' ,
+ check('password', 'Password is Required').isLength({min:1}),
+check('email','Email is Required').isLength({min:1}),
+authController.postLogin);
 
 //ROUTE TO GET SIGNUP PAGE
 router.get('/signup' , authController.getSignup) ;
 
 //ROUTE FOR POST SIGNUP
 router.post('/signup' ,
- check('email').isEmail() ,
- body('password' , 'Enter atleast 6 charechter long Password without Special Charecters').isLength({min:6}).isAlphanumeric(),
- body('confirmPassword').custom((value , {req}) => {
+ check('email').isEmail().trim() ,
+ body('password' , 'Enter atleast 6 charechter long Password without Special Charecters').isLength({min:6}).isAlphanumeric().trim(),
+ body('confirmPassword').trim().custom((value , {req}) => {
     if(value !== req.body.password){
         throw new Error('Password Have to be Matched') ;
     }

@@ -1,6 +1,7 @@
 
 //PRODUCT MODEL
 const Product = require('../models/productModel');
+const fileHelper = require('../util/fileHelper');
 const { validationResult } = require('express-validator/check');
 
 
@@ -91,6 +92,7 @@ exports.getEditProduct = (req , res ,next) => {
         const imagePath = "/images/" + image.filename;
 
         if(image){
+            fileHelper.deleteFile(image.path);
             product.image = imagePath ;
         }
 
@@ -114,13 +116,21 @@ exports.getEditProduct = (req , res ,next) => {
   //CONTROLLER FUNCTION TO DELETE PRODUCT
   exports.deleteProduct = (req , res ,next)=>{
     const productId = req.params.productId ;
-    Product.deleteOne({_id: productId , userId : req.user._id})
-        .then( result => {
-           res.redirect('/admin/products');
-        })
-        .catch(err => {
-            console.log(err);
-        });
+    Product.findById(productId)
+    .then(product => {
+        if(!product){
+            return res.redirect('/');
+        }
+        const imagePath  = "public/" + product.image ;
+        fileHelper.deleteFile(imagePath);
+        return Product.deleteOne({_id: productId , userId : req.user._id}) ;
+    })
+    .then( result => {
+        res.redirect('/admin/products');
+    })
+    .catch(err => {
+        console.log(err);
+    });
   }
 
 

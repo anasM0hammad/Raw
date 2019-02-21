@@ -24,16 +24,19 @@
 									<input type="text" class="form-control" name="title">
 								</div>
 								<div class="form-group">
-									<label><b>Image</b></label>
-									<input type="text" class="form-control" name="image">
-								</div>
-								<div class="form-group">
 									<label><b>Price</b></label>
 									<input type="number" class="form-control" name="price" step="0.01">
 								</div> 
 								<div class="form-group">
 									<label><b>Product Description</b></label>
 									<textarea class="form-control" name="description" rows="3"></textarea>
+								</div>
+								<div class="form-group">
+									<label class="imageFileContainer">
+										<img src="/images/image-icon.png" width="60" height="60">
+										<input type="file">
+										<span><b> Add Image</b></span>		
+									</label>		
 								</div>
 								<input type="hidden" name="_csrf" value="<%= csrfToken %>">
 								<button class="btn btn-primary btn-block mybtn-corner" type="submit">Submit</button>

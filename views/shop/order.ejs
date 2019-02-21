@@ -19,6 +19,7 @@
                                 <% for (product of order.products) { %>
                                 <li class="list-group-item"><%= product.data.title %> <span class="float-right">Quantity : <%=product.qty%></span></li>
                                 <% } %>
+                                <a class="text-primary text-right" style="margin-top:2px;" href="orders/<%= order._id %>"><b>Invoice</b></a>
                              </ul>
                         </div>
                     </div>
@@ -30,16 +31,7 @@
                <% }%>      
         </div>
         <div class="col-sm-1"><br></div>
-        <div class="col-sm-3">
-            <% if(orders.length > 0){ %>
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="text-center">Last Order</h5><hr>
-
-                </div>
-            </div>
-            <% } %>
-        </div>
+        <div class="col-sm-3"></div>
     </div>
 </div>
 

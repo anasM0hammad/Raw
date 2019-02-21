@@ -1,3 +1,7 @@
+const fs = require('fs');
+const path = require('path');
+const rootDir = require('../util/path');
+
 //PRODUCT MODEL
 const Product = require('../models/productModel');
 const User = require('../models/userModel');
@@ -123,4 +127,23 @@ exports.postOrder = (req , res , next) => {
     .catch(err => {
         console.log(err);
     });
+}
+
+
+
+//GET THE INVOICE
+exports.getInvoice = (req , res , next) => {
+    const orderId = req.params.orderId ;
+    const invoiceName = "invoice-" + orderId + ".pdf" ;
+
+    const filePath = path.join(rootDir , 'data' , 'invoice' , invoiceName) ;
+    
+    fs.readFile(filePath, (err , fileContent) => {
+        if(err){
+            return res.redirect('/');
+        }
+        res.setHeader('content-Type' , 'application-pdf') ;
+        res.setHeader('content-Disposition' , 'attachment; filename= "'+invoiceName+'" ') ;
+        res.send(fileContent);
+    }) ;
 }

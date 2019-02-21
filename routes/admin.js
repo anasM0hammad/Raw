@@ -18,7 +18,6 @@ isAuth ,
 check('title','Title is Required').isLength({min:1}),
 check('price','Price is Required').isLength({min:1}),
 check('description','Description is Required').isLength({min:1}),
-check('image','Image is Required').isLength({min:1}),
 adminController.postAddProduct);
 
 //ROUTE FOR EDIT PRODUCT PAGE
@@ -30,7 +29,6 @@ isAuth ,
 check('title','Title is Required').isString().isLength({min:1}),
 check('price','Price is Required').isFloat(),
 check('description','Description is Required').isLength({min:1}),
-check('image','Image is Required').isURL(),
 adminController.postEditProduct);
 
 //ROUTE FOR DELETING PRODUCT REQ

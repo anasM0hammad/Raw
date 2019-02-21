@@ -13,19 +13,26 @@ exports.getAddProduct = (req , res ,next) => {
 //CONTROLLER FUNCTION TO TAKE THE ADD PRODUCT POST REQUEST
 exports.postAddProduct = (req , res , next) => {
     const title = req.body.title ;
-    const image = req.body.image ;
+    const image = req.file ;
     const price = req.body.price ;
     const description = req.body.description ;
     const errorMsg = validationResult(req);
     const isAuth = req.session.isLoggedIn == true ? true : false ;
 
+
     if(!errorMsg.isEmpty()){
        return res.status(422).render('admin/add-product' , {docTitle : 'Add Product' , path: '/admin/add-product' , isAuth : isAuth , errorMsg : errorMsg.array()[0].msg})
     }
     
+    if(!image){
+        return res.status(422).render('admin/add-product' , {docTitle : 'Add Product' , path: '/admin/add-product' , isAuth : isAuth , errorMsg : 'Invalid Image Type'})
+    }
+    
+    const imagePath = "/images/" + image.filename ;
+
     const product = new Product({
         title : title ,
-        image : image ,
+        image : imagePath ,
         price : price ,
         description : description ,
         userId : req.user._id
@@ -64,7 +71,7 @@ exports.getEditProduct = (req , res ,next) => {
  exports.postEditProduct = (req , res , next)=>{
      const title = req.body.title ;
      const price = req.body.price ;
-     const image = req.body.image ;
+     const image = req.file ;
      const description = req.body.description ;
      const productId = req.body.productId ;
      const errorMsg = validationResult(req);
@@ -81,9 +88,14 @@ exports.getEditProduct = (req , res ,next) => {
            return res.redirect('/');
         }
 
+        const imagePath = "/images/" + image.filename;
+
+        if(image){
+            product.image = imagePath ;
+        }
+
          product.title = title ;
          product.price = price ;
-         product.image = image ;
          product.description = description ;
 
          return product.save()

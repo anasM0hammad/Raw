@@ -24,7 +24,6 @@ router.post('/signup' ,
     if(value !== req.body.password){
         throw new Error('Password Have to be Matched') ;
     }
-
     return true ;
  }),
  authController.postSignup) ;

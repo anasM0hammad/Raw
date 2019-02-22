@@ -3,7 +3,7 @@ const path = require('path');
 const rootDir = require('../util/path');
 const pdfkit = require('pdfkit');
 
-const ITEMS_PER_PAGE = 1 ;
+const ITEMS_PER_PAGE = 6 ;
 
 //PRODUCT MODEL
 const Product = require('../models/productModel');
@@ -19,7 +19,7 @@ exports.getProducts = (req , res , next) => {
     let hasPreviousPage = true ;
     Product.countDocuments()
     .then(number => {
-        lastPage = number/ITEMS_PER_PAGE ;
+        lastPage = Math.ceil(number/ITEMS_PER_PAGE) ;
         page > lastPage ? page = lastPage : page = page ;
         lastPage == page ? hasNextPage = false : hasNextPage = true ; 
         page == 1 ? hasPreviousPage = false : hasPreviousPage = true ;

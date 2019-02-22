@@ -32,7 +32,7 @@ check('description','Description is Required').isLength({min:1}),
 adminController.postEditProduct);
 
 //ROUTE FOR DELETING PRODUCT REQ
-router.get('/delete-product/:productId' ,isAuth , adminController.deleteProduct);
+router.delete('/delete-product/:productId' ,isAuth , adminController.deleteProduct);
 
 //ROUTE TO GET ADMIN PRODUCTS PAGE
 router.get('/products' , isAuth , adminController.getProducts);

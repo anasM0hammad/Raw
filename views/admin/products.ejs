@@ -23,8 +23,11 @@
                       <h6><b>Price : ₹ <%= prods[i].price %> /-</b></h6>
                       <p><small><%= prods[i].description %></small></p>
                       <br>
+                      <input type="hidden" name="prodId" value="<%= prods[i]._id %>">
+                      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                       <a href="/admin/edit-product/<%=prods[i]._id %>"><button class="btn btn-outline-primary btn-block mybtn-corner">Edit Product</button></a>
-                      <a href="/admin/delete-product/<%=prods[i]._id %>"><button class="btn btn-outline-danger btn-block mybtn-corner">Delete Product</button></a>
+                      <!-- <a href="/admin/delete-product/<%=prods[i]._id %>"><button class="btn btn-outline-danger btn-block mybtn-corner">Delete Product</button></a> -->
+                      <button class="btn btn-outline-danger btn-block mybtn-corner" type="button" onclick="deleteProd(this)">Delete Product</button>
                     </div>
                   </div>
               </div>
@@ -41,8 +44,11 @@
                         <h6><b>Price : ₹ <%= prods[i].price %> /-</b></h6>
                         <p><small><%= prods[i].description %></small></p>
                         <br>
+                        <input type="hidden" name="prodId" value="<%= prods[i]._id %>">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                         <a href="/admin/edit-product/<%=prods[i]._id %>"><button class="btn btn-outline-primary btn-block mybtn-corner">Edit Product</button></a>
-                        <a href="/admin/delete-product/<%=prods[i]._id %>"><button class="btn btn-outline-danger btn-block mybtn-corner">Delete Product</button></a>
+                        <!-- <a href="/admin/delete-product/<%=prods[i]._id %>"><button class="btn btn-outline-danger btn-block mybtn-corner">Delete Product</button></a> -->
+                        <button class="btn btn-outline-danger btn-block mybtn-corner" type="button" onclick="deleteProd(this)">Delete Product</button>
                       </div>
                     </div>
                 </div>
@@ -62,8 +68,11 @@
                           <h6><b>Price : ₹ <%= prods[i].price %> /-</b></h6>
                           <p><small><%= prods[i].description %></small></p>
                           <br>
+                          <input type="hidden" name="prodId" value="<%= prods[i]._id %>">
+                          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                           <a href="/admin/edit-product/<%=prods[i]._id %>"><button class="btn btn-outline-primary btn-block mybtn-corner">Edit Product</button></a>
-                          <a href="/admin/delete-product/<%=prods[i]._id %>"><button class="btn btn-outline-danger btn-block mybtn-corner">Delete Product</button></a>
+                          <!-- <a href="/admin/delete-product/<%=prods[i]._id %>"><button class="btn btn-outline-danger btn-block mybtn-corner">Delete Product</button></a> -->
+                          <button class="btn btn-outline-danger btn-block mybtn-corner" type="button" onclick="deleteProd(this)">Delete Product</button>
                         </div>
                       </div>
                   </div>
@@ -86,3 +95,5 @@
 
  <!-- FOOTER -->
  <%- include('../includes/footer.ejs') %>
+
+ <script src="/js/admin.js"></script>

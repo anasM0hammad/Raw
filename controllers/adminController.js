@@ -59,7 +59,7 @@ exports.getEditProduct = (req , res ,next) => {
         if(!product){
             return res.redirect('/');
          }
-         res.render('admin/edit-product' , {docTitle : 'Edit Product' , path: '/admin/edit-product' , product: product , isAuth :isAuth }); 
+         res.render('admin/edit-product' , {docTitle : 'Edit Product' , path: '/admin/edit-product' , product: product , isAuth :isAuth ,  errorMsg : ''}); 
     })
     .catch(err =>{
         console.log(err);
@@ -89,9 +89,8 @@ exports.getEditProduct = (req , res ,next) => {
            return res.redirect('/');
         }
 
-        const imagePath = "/images/" + image.filename;
-
         if(image){
+            const imagePath = "/images/" + image.filename;
             fileHelper.deleteFile(image.path);
             product.image = imagePath ;
         }
@@ -126,10 +125,12 @@ exports.getEditProduct = (req , res ,next) => {
         return Product.deleteOne({_id: productId , userId : req.user._id}) ;
     })
     .then( result => {
-        res.redirect('/admin/products');
+        //res.redirect('/admin/products');
+        res.status(200).json({message : 'success'});
     })
     .catch(err => {
         console.log(err);
+        res.status(500).json({message : 'Product cannot be Deleted'}) ;
     });
   }
 

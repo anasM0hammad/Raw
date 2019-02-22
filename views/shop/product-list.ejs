@@ -69,6 +69,28 @@
                   i++ ;
                  } %> 
             </div>
+
+            <br><br>
+
+            <!-- PAGINATION -->
+            <nav class="container">
+              <ul class="pagination justify-content-center">
+                <li class="page-item <%= hasPreviousPage == true ? '' : 'disabled'%> ">
+                  <a class="page-link" href="?page=<%= curPage - 1 %>" tabindex="-1" aria-disabled="true">Previous</a>
+                </li>
+
+              <% for(let i=1 ; i<=lastPage ; i++) {%>  
+                <li class="page-item <% curPage == i ? 'active' : '' %> ">
+                  <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+                </li>
+               <% } %> 
+
+                </li>
+                <li class="page-item <%= hasNextPage == true ? '' : 'disabled' %>">
+                  <a class="page-link" href="?page=<%= curPage + 1 %>">Next</a>
+                </li>
+              </ul>
+            </nav>
               
          <% }
         } else{  %>

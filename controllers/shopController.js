@@ -3,6 +3,8 @@ const path = require('path');
 const rootDir = require('../util/path');
 const pdfkit = require('pdfkit');
 
+const ITEMS_PER_PAGE = 1 ;
+
 //PRODUCT MODEL
 const Product = require('../models/productModel');
 const User = require('../models/userModel');
@@ -11,13 +13,24 @@ const Order = require('../models/orderModel') ;
 
 //CONTROLLER FUNCTION TO RENDER ALL PRODUCTS ON SHOP PAGE
 exports.getProducts = (req , res , next) => {
-    
-    Product.find()
-        .then( products => {
-           res.render('shop/product-list' , {docTitle : 'Shop' , path: '/shop' , prods : products })
-        }).catch(err => {
-            console.log(err);
-       });
+    let page = +req.query.page || 1 ;
+    let lastPage ;
+    let hasNextPage = true ;
+    let hasPreviousPage = true ;
+    Product.countDocuments()
+    .then(number => {
+        lastPage = number/ITEMS_PER_PAGE ;
+        page > lastPage ? page = lastPage : page = page ;
+        lastPage == page ? hasNextPage = false : hasNextPage = true ; 
+        page == 1 ? hasPreviousPage = false : hasPreviousPage = true ;
+        return Product.find().skip((page-1)*ITEMS_PER_PAGE).limit(ITEMS_PER_PAGE) ;
+    })
+    .then( products => {
+        res.render('shop/product-list' , {docTitle : 'Shop' , path: '/shop' , prods : products, curPage : page , lastPage : lastPage , hasPreviousPage : hasPreviousPage , hasNextPage : hasNextPage })
+     }).catch(err => {
+         console.log(err);
+    });
+       
 }
 
 

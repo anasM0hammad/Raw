@@ -5,7 +5,7 @@
 <%- include('../includes/nav.ejs'); %>
 
    <div class="container">
-       <% if(prods.lenght > 0) { %>
+       <% if(prods.length > 0) { %>
         <h2>Your Cart</h2><br>
        <% } %>
         
@@ -36,12 +36,8 @@
 
          <%   }
             }
-             else{
          %>
-         <div>
-             <h3 class="text-center">CART IS EMPTY NOW</h3>
-         </div>
-        <% } %>
+
 
           </div>
 
@@ -70,6 +66,18 @@
                 <% } %>
           </div>
       </div>
+
+
+      <% if(prods.length <= 0){ %>
+        <div class="card mx-auto d-block" style="width : 50% ; margin-bottom: 80px;">
+            <div class="card-body">
+                <img src="/images/empty-cart.png" class="mx-auto d-block" width="150" height="150"><br><br>
+                <h3 class="text-center">CART IS EMPTY NOW</h3>
+            </div>
+        </div>
+       <% } %>
+
+
    </div>
 
 

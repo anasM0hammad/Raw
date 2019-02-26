@@ -4,14 +4,30 @@
 <!-- NAVBAR -->
 <%- include('../includes/nav.ejs'); %>
 
+<style>
 
+  .main{
+    color: white;
+    background-image: url('/images/background.jpg');
+    height: 560px;
+    margin-top: -50px;
+    font-family:  Verdana, Geneva, Tahoma, sans-serif ;
+  }
 
+</style>
+
+<div class="main">
+  <br><br>
   <div class="container">
-      <h1>Hello From the Home Page</h1>
+    <div class="row">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6">
+        <img src='/images/logo.png' class="mx-auto d-block" width="100" height="100">
+        <h1 class="text-center "><b>RAW</b></h1><br>
+        <p>RAW is an online product registering web app helps people to sell their products on the website. Its nice easy to use just Register yourself add your product and wait for the buyer to add it.</p>
+        <p>You don't need to worry about the payment we take the payment for you and transfer it.</p>
+      </div>
+      <div class="col-sm-3"></div>
+    </div>
   </div>
-
-
-
-
- <!-- FOOTER -->
- <%- include('../includes/footer.ejs') %>
+</div>

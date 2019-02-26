@@ -60,7 +60,7 @@ exports.postCart = (req , res , next) => {
     const productId = req.body.productId;
     req.user.addToCart(productId)
     .then(result => {
-        res.redirect('/');
+        res.redirect('/cart');
     })
     .catch(err => {
         console.log(err);
@@ -88,9 +88,18 @@ exports.getDeleteProductFromCart = (req , res , next) => {
 exports.getProductDetails = (req , res , next ) =>{
     
     const productId = req.params.productId ;
-    Product.findById(productId).then(product =>{
-        res.render('shop/product-details' , {docTitle: 'Product Details' , path: '/product-details' , product: product });
-    }).catch();       
+    Product.findById(productId)
+    .then(product =>{
+      return product.populate('userId').execPopulate() ;
+    })
+    .then(product => {
+        const username = product.userId.name ;
+        const email = product.userId.email ;
+        res.render('shop/product-details' , {docTitle: 'Product Details' , path: '/product-details' , product: product , username : username , email : email });
+    })
+    .catch(err => {
+        console.log(err);
+    });       
    
 }
 

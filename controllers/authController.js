@@ -8,7 +8,7 @@ const { validationResult } = require('express-validator/check') ;
 
 const transporter = nodemailer.createTransport(sendGrid({
     auth : {
-        api_key : '' 
+        api_key : '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' 
     }
 }));
 
@@ -87,12 +87,17 @@ exports.postSignup = (req , res , next) => {
    const password = req.body.password ;
    const confirmPassword = req.body.confirmPassword ;
    const errorMsg = validationResult(req) ;
+   let token ;
    
    if(!errorMsg.isEmpty()){
        return res.status(422).render('auth/signup' , {docTitle : 'Signup' , path : '/signup' , errorMsg : errorMsg.array()[0].msg} ) ;
    }
 
-   User.findOne({email : email})
+   crypto.randomBytes(32 , (err , buffer) => {
+        token = buffer.toString('hex');
+    }) ;
+
+    User.findOne({email : email})
    .then(user => {
        if(user){
         req.flash('error' , 'User Already Exist');
@@ -105,7 +110,9 @@ exports.postSignup = (req , res , next) => {
             name : name ,
             email : email ,
             password : hashedPassword ,
-            cart : { item : [] }
+            cart : { item : [] },
+            verified : false,
+            verifiedToken : token
         });
  
         return newUser.save() ;
@@ -114,12 +121,12 @@ exports.postSignup = (req , res , next) => {
        .then(result => {
            req.flash('success' , 'Signup Successfull');
            res.redirect('/login');
-           
            transporter.sendMail({
                to: email ,
                from : 'support@raw12.in',
                subject : 'Welcome to Online Shopping Registering Store',
-               html: '<h2>Welcome to Online Shopping Store</h2> <p>You are Signup Successfully Now you can post your products as well as buy from our website</p>'
+               html: `<h2>Welcome to Online Shopping Store</h2> <p>You are Signup Successfully Now you can post your products as well as buy from our website</p>
+                       <br><br><p>Please click on this <a href="https://raw1.herokuapp.com/verification?user=${email}&token=${token}">link</a> to verify your account</p>`
            })
            .then(result =>{
            
@@ -127,7 +134,6 @@ exports.postSignup = (req , res , next) => {
            .catch(err => {
                console.log(err);
            });
-
        });
    })
    .catch(err => {
@@ -182,7 +188,7 @@ exports.postReset = (req , res , next) => {
                 from : 'support@raw12.in',
                 subject : 'Resetting Password',
                 html : `<h2>Reset Your Password</h2>
-                        <p>We are here to help you click <a href="http://localhost:3000/reset/${token}">here</a> to reset your password Successfully. If resetting password is not requested by you just ignore this mail.</p>`
+                        <p>We are here to help you click <a href="https://raw1.herokuapp.com/reset/${token}">here</a> to reset your password Successfully. If resetting password is not requested by you just ignore this mail.</p>`
             })
         })
         .then(result => {
@@ -238,4 +244,30 @@ exports.postNewPassword = (req , res , next) => {
         console.log(err) ;
     })
 
+}
+
+
+exports.getVerification = (req , res , next) => {
+    const userEmail = req.query.user ;
+    const token = req.query.token ;
+
+    User.findOne({email : userEmail})
+    .then(user => {
+        if(!user){
+           return res.redirect('/');
+        }
+        
+       if(user.verifiedToken === token){
+           user.verified = true ;
+         return  user.save().then(result => {
+               res.redirect('/shop');
+           });
+       }
+
+       return res.redirect('/');
+
+    })
+    .catch(err => {
+        console.log(err);
+    })
 }

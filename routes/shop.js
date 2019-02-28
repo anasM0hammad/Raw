@@ -28,7 +28,7 @@ router.get('/product-details/:productId' , shopController.getProductDetails);
 router.get('/order' ,isAuth ,  shopController.getOrder);
 
 //ROUTE TO ADD CART TO ORDER
-router.post('/order' , isAuth , shopController.postOrder) ;
+//router.post('/order' , isAuth , shopController.postOrder) ;
 
 //ROUTE TO ACCESS INVOICE
 router.get('/orders/:orderId' , isAuth , shopController.getInvoice);

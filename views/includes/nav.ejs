@@ -8,7 +8,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item  <%= path=='/shop' ? 'active' : '' %> ">
-                  <a class="nav-link" href="/shop"><i class="fas fa-plus-circle"><b> Shop</b></i></a>
+                  <a class="nav-link" href="/shop"><i class="fas fa-store"><b> Shop</b></i></a>
                 </li>
 
                <% if(isAuth){ %> 
@@ -27,7 +27,7 @@
               </ul>
               <%}%>
 
-              <ul class="navbar-nav justify-end-content">
+              <ul class="navbar-nav justify-end-content conatiner">
 
                <% if(!isAuth) { %>
                 <li class="nav-link <%= path =='/login' ? 'active' : '' %>">

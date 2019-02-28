@@ -5,7 +5,10 @@
 <%- include('../includes/nav.ejs'); %>
 
 <div class="container">
+    <% if(orders.length > 0){ %>
     <h1>Orders</h1><br>
+    <% } %>
+
     <div class="row">
         <div class="col-sm-8">
             <% if(orders.length > 0) { %>
@@ -24,15 +27,18 @@
                         </div>
                     </div>
                 <% } %>
-            <% }  else {%>
-                <div>
-                    <h2 class="text-center">No Orders Now </h2>
-                </div>   
-               <% }%>      
+            <% } %>
+
         </div>
         <div class="col-sm-1"><br></div>
         <div class="col-sm-3"></div>
     </div>
+
+     <% if(orders.length <= 0){ %>
+        <img src="/images/empty-orders.png" class="mx-auto d-block" width="295" height="235"><br>
+        <h3 class="text-muted text-center">No Orders Yet</h3>
+     <% } %>   
+
 </div>
 
 

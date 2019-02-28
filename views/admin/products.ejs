@@ -5,8 +5,10 @@
 <%- include('../includes/nav.ejs'); %>
 
   <div class="container">
+   <% if(prods.length > 0) { %> 
     <h1>All Your Products</h1><br><br>
-    
+   <% } %>
+
     <!-- ALL PRODUCTS -->
     <div class="row">
       <div class="col-sm-12">
@@ -20,7 +22,7 @@
                   <h5 class="card-header text-center"><i><%= prods[i].title %></i></h5>
                     <div class="card-body">
                       <img src="<%= prods[i].image %>" class="mx-auto d-block" width="50%" height="150" ><br>
-                      <h6><b>Price : ₹ <%= prods[i].price %> /-</b></h6>
+                      <h6><b>Price : $ <%= prods[i].price %> /-</b></h6>
                       <p><small><%= prods[i].description %></small></p>
                       <br>
                       <input type="hidden" name="prodId" value="<%= prods[i]._id %>">
@@ -41,7 +43,7 @@
                     <h5 class="card-header text-center"><i><%= prods[i].title %></i></h5>
                       <div class="card-body">
                         <img src="<%= prods[i].image %>" class="mx-auto d-block" width="50%" height="150" ><br>
-                        <h6><b>Price : ₹ <%= prods[i].price %> /-</b></h6>
+                        <h6><b>Price : $ <%= prods[i].price %> /-</b></h6>
                         <p><small><%= prods[i].description %></small></p>
                         <br>
                         <input type="hidden" name="prodId" value="<%= prods[i]._id %>">
@@ -65,7 +67,7 @@
                       <h5 class="card-header text-center"><i><%= prods[i].title %></i></h5>
                         <div class="card-body">
                           <img src="<%= prods[i].image %>" class="mx-auto d-block" width="50%" height="150" ><br>
-                          <h6><b>Price : ₹ <%= prods[i].price %> /-</b></h6>
+                          <h6><b>Price : $ <%= prods[i].price %> /-</b></h6>
                           <p><small><%= prods[i].description %></small></p>
                           <br>
                           <input type="hidden" name="prodId" value="<%= prods[i]._id %>">
@@ -83,13 +85,17 @@
             </div>
               
          <% }
-        } else{  %>
-          <div class="alert alert-danger"><b>No Products</b></div>
-       <% }%>   
+        } %>   
       </div>
-      
-   
   </div>
+
+  <% if(prods.length <= 0){ %> 
+    
+    <img src="/images/admin-products.jpg" class="mx-auto d-block" width="250" height="230">
+    <br>
+    <h3 class="text-muted text-center">No Registered Products</h3>
+
+  <%}%> 
 
 </div>
 

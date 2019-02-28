@@ -20,7 +20,9 @@
                 
                 qty : { type : Number , required : true}
              }]
-    }
+    },
+    verified : {type :Boolean} ,
+    verifiedToken : {type : String}
 
  });
 

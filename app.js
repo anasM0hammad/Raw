@@ -6,6 +6,8 @@ const MongoDBStore = require('connect-mongodb-session')(session) ;
 const csrf = require('csurf');
 const flash = require('connect-flash') ;
 const multer = require('multer');
+const helmet = require('helmet');
+const compression = require('compression');
 
 const path = require('path');
 
@@ -16,6 +18,7 @@ const csrfProtection = csrf();
  const homeRouter = require('./routes/home');
  const authRouter = require('./routes/auth');
  const notFoundRouter = require('./routes/404');
+ const shopController = require('./controllers/shopController');
 
 
 const User = require('./models/userModel') ;
@@ -42,7 +45,8 @@ const fileFilter = (req , file , cb)=>{
   }
 }
 
-
+app.use(compression()) ;
+app.use(helmet()) ;
 app.use(express.static(path.join(__dirname , 'public')));
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(multer({storage : fileStorage , fileFilter:fileFilter}).single('image'));
@@ -52,6 +56,7 @@ const store = new MongoDBStore({
   collection : 'sessions'
 });
 
+
 app.use(session({
   secret : 'I dont Share My secret' ,
   resave : false ,
@@ -59,11 +64,6 @@ app.use(session({
   store : store
  }) 
 );
-
-app.use(csrfProtection);
-
-app.use(flash());
-
 
 app.use((req , res ,next) => {
   if(req.session.isLoggedIn){
@@ -80,6 +80,14 @@ app.use((req , res ,next) => {
   }
 });
 
+app.post('/order' , shopController.postOrder);
+
+app.use(csrfProtection);
+
+app.use(flash());
+
+
+
 app.use((req , res , next) => {
   res.locals.isAuth = req.session.isLoggedIn ;
   res.locals.csrfToken = req.csrfToken();
@@ -94,7 +102,7 @@ app.use((req , res , next) => {
  app.use(notFoundRouter);
 
 
-mongoose.connect('mongodb+srv://anasM0hammad:dWqmd6zjdCD1mV4D@raw-bawen.mongodb.net/raw')
+mongoose.connect(`mongodb+srv://anasM0hammad:dWqmd6zjdCD1mV4D@raw-bawen.mongodb.net/raw`)
 .then(result => {
     app.listen(3000);
 })

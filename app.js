@@ -104,7 +104,7 @@ app.use((req , res , next) => {
 
 mongoose.connect(`mongodb+srv://anasM0hammad:dWqmd6zjdCD1mV4D@raw-bawen.mongodb.net/raw`)
 .then(result => {
-    app.listen(3000);
+    app.listen(process.env.PORT || 3000);
 })
 .catch(err => {
   console.log(err);

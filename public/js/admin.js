@@ -3,7 +3,7 @@ const deleteProd = (btn)=> {
     const csrf = btn.parentNode.querySelector('[name=_csrf]').value ;
     const product = btn.closest('.card') ;
 
-    fetch(`/admin/delete-product/${prodId}` , {
+    fetch(`https://raw1.herokuapp.com//admin/delete-product/${prodId}` , {
         method : 'DELETE',
         headers : {'csrf-token' : csrf}
     })

@@ -6,11 +6,11 @@ const sendGrid = require('nodemailer-sendgrid-transport') ;
 const crypto = require('crypto');
 const { validationResult } = require('express-validator/check') ;
 
-const transporter = nodemailer.createTransport(sendGrid({
-    auth : {
-        api_key : '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' 
-    }
-}));
+// const transporter = nodemailer.createTransport(sendGrid({
+//     auth : {
+//         api_key : 'YOUR SENDGRID KEY' 
+//     }
+// }));
 
 //CONTROLLER FUNCTION TO RENDER LOGIN PAGE
 exports.getLogin = (req , res ,next ) => {

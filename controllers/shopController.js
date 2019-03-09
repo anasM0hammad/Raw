@@ -120,7 +120,7 @@ exports.getOrder = (req , res , next ) => {
 
 exports.postOrder = (req , res , next) => {
 
-    var stripe = require("stripe")("sk_test_UwKMq4VfMiUugfpjw9wGwtQ9");
+    var stripe = require("stripe")("YOUR STRIPE KEY");
     const token = req.body.stripeToken; 
     let total = 0 ;
 
